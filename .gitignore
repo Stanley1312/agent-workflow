@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# GitNexus index (per-repo, generated locally)
+.gitnexus/
+
+# Claude Code generated skills (except our committed ones)
+.claude/skills/generated/
+.claude/settings.local.json
+.claude/worktrees/
+
+# llm-wiki is local, not committed
+llm-wiki/
+
+# env
+.env
+.env.local
+.env*.local
