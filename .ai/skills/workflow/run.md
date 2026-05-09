@@ -1,5 +1,7 @@
 # /workflow run
 
+> **Prerequisite:** Run `/setup` to install required tools before running.
+
 1. Check `.ai/active/current/` — if files already exist, abort and tell user to run `/workflow status`
 2. Load agent `.ai/agents/architect.md`
 3. Architect reads `REQUIREMENTS.md` → selects highest priority item with user

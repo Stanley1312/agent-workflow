@@ -6,6 +6,10 @@ model-recommendation: See individual agent files for model per step
 
 # Skill: Full Workflow
 
+> **Prerequisite:** Read `.ai/skills/setup.md` to install required tools before running this workflow.
+
+> **Prerequisite:** Run `/setup` to install required tools before running this workflow.
+
 ## The Golden Loop
 
 ```

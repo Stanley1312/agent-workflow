@@ -1,5 +1,7 @@
 # /workflow init
 
+> **Prerequisite:** Run `/setup` to install required tools before running.
+
 1. Load agent `.ai/agents/strategist.md`
 2. Load skill `.ai/skills/discuss.md`
 
