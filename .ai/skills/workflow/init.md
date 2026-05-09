@@ -52,4 +52,4 @@ Do not proceed until the user confirms.
 4. Load skill `.ai/skills/wiki_agent.md` → run Init workflow to create `llm-wiki/`
 5. Update `REQUIREMENTS.md` with items surfaced during discovery
 6. Update `ROADMAP.md` with initial milestone structure
-7. Confirm: "Project initialized. Run `/workflow run` to start your first feature."
+7. Run `/workflow run` to start first feature.
