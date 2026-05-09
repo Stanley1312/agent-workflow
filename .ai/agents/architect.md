@@ -3,7 +3,8 @@ id: architect
 role: Senior Software Architect
 model: claude-opus-4-5
 skills:
-  - .claudeskills/gitnexus/exploring/SKILL.md
+  - .claude/skills/frontend-design/SKILL.md
+  - .claude/skills/gitnexus/exploring/SKILL.md
   - .claude/skills/gitnexus/impact-analysis/SKILL.md
   - .ai/skills/wiki_agent.md
 reads:

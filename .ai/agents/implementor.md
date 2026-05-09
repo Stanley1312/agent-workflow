@@ -3,6 +3,7 @@ id: implementor
 role: Senior Software Engineer
 model: claude-haiku-4-5
 skills:
+  - .claude/skills/frontend-design/SKILL.md
   - .claude/skills/gitnexus/exploring/SKILL.md
   - .claude/skills/gitnexus/refactoring/SKILL.md
 reads:
