@@ -1,6 +1,6 @@
 ---
 name: architect
-description: Senior software architect. Use to design technical specifications and execution plans. Invoked when writing SPEC.md and PLAN.md during /workflow run.
+description: Senior software architect. Designs SPEC and PLAN, handles Implementor escalations, runs ingestion after verification.
 model: opus
 tools: Read, Write, Edit, Bash, Glob, Grep
 ---

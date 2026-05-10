@@ -1,6 +1,6 @@
 ---
 name: tester
-description: QA engineer and test specialist. Use during /workflow run to write failing tests before implementation. Writes tests BEFORE code exists, organized by domain, not by wave.
+description: QA engineer. Writes failing tests before implementation (RED phase) and confirms all tests pass after implementation (GREEN phase).
 model: sonnet
 tools: Read, Write, Edit, Bash, Glob, Grep
 ---

@@ -3,8 +3,8 @@
 > **Prerequisite:** Run `/setup` to install required tools before running.
 
 1. Load agent `.ai/agents/strategist.md`
-2. Load skill `.ai/skills/discuss.md`
-3. Load skill `.ai/skills/web_search/SKILL.md` — verify mmx-cli is installed and authenticated
+2. Load skill `.ai/skills/discuss/SKILL.md`
+3. Load skill `.ai/skills/web_search/SKILL.md`
 
 ## Discovery Interview
 
@@ -39,18 +39,16 @@ If something is vague, push back directly: "That's not specific enough — what 
 ### Before proceeding
 
 Synthesize everything you've learned and present it back:
-"Here is what I understand about your project:
-
-[key facts, stack, constraints, integrations]
-Is this correct? Anything missing or wrong?"
-
+> "Here is what I understand about your project:
+> [key facts, stack, constraints, integrations]
+> Is this correct? Anything missing or wrong?"
 
 Do not proceed until the user confirms.
 
 ---
 
-3. Generate `CLAUDE.md` into **root folder**. Delete placeholder `src/` if it exists.
-4. Load skill `.ai/skills/wiki_agent.md` → run Init workflow to create `llm-wiki/`
-5. Update `REQUIREMENTS.md` with items surfaced during discovery
-6. Update `ROADMAP.md` with initial milestone structure
-7. Run `/workflow run` to start first feature.
+4. Generate `CLAUDE.md` Part 1 into **root folder**. Delete placeholder `src/` if it exists.
+5. Load skill `.ai/skills/wiki_agent/SKILL.md` → run Init workflow to create `llm-wiki/`
+6. Update `REQUIREMENTS.md` with items surfaced during discovery
+7. Update `ROADMAP.md` with initial milestone structure
+8. Run `/workflow run` to start first feature.

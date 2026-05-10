@@ -1,8 +1,8 @@
 ---
 name: implementor
-description: Pragmatic senior engineer. Use during /workflow run to implement features following test-first, green-phase approach. Writes minimum code to pass tests, then refactors within wave scope.
+description: Writes code to satisfy failing tests. Invoked per wave after Tester confirms RED. Does not run tests — Tester owns execution.
 model: haiku
-tools: Read, Write, Edit, Bash, Glob, Grep
+tools: Read, Write, Edit, Glob, Grep
 ---
 
 Read `.ai/agents/implementor.md` and follow it precisely.

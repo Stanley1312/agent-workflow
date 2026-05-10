@@ -2,121 +2,114 @@
 
 > **Prerequisite:** Run `/setup` to install required tools before running.
 
-1. Check `.ai/active/current/` — if files already exist, abort and tell user to run `/workflow status`
-2. Load agent `.ai/agents/architect.md`
-3. Architect reads `REQUIREMENTS.md` → selects highest priority item with user
+## What this command does
+Read current state → continue from where work left off → if nothing in progress, start next feature.
 
-### [ARCHITECT PREP — required before writing SPEC]
-4. Load `.ai/skills/wiki_agent.md` → run Query workflow to load existing system context
-5. Use web search to update knowledge about the relevant tech stack:
-   - Current best practices and syntax (e.g. Vue 3 Composition API, not legacy Options API)
-   - Breaking changes and version compatibility
-   - Known pitfalls for the current stack
-   - Common patterns for the type of feature being built
+---
 
-### [SPEC]
-6. Architect writes `.ai/active/current/SPEC.md` from `.ai/templates/SPEC.template.md`
-7. Architect presents SPEC to user and asks exactly this:
-   > "SPEC is ready. Do you approve? Type 'approve' to continue or let me know what needs to change."
+## Step 1 — Check current state
+Read `.ai/active/current/STATE.md`:
+- **File exists with in-progress status** → resume from last checkpoint (see Resume Logic below)
+- **File exists with PAUSED status** → tell user: "A paused task exists. Run `/workflow resume` to continue it or `/workflow status` to review."
+- **No files in active/current/** → start new feature (continue to Step 2)
 
-   - If user approves (types "approve" / "ok" / "yes" or equivalent) → Architect writes into SPEC.md:
- **Status:** APPROVED
- **Approved by:** user
- **Date:** [today's date]
-   - If user requests changes → update SPEC → repeat step 7
-   - **Never proceed if SPEC.md does not have status APPROVED**
+---
 
-### [PLAN + STATE]
-8. Architect creates `.ai/active/current/STATE.md` from `.ai/templates/STATE.template.md`
-   - Write first checkpoint: `SPEC APPROVED — [date]`
-   - **Mandatory, cannot be skipped**
-9. Architect creates `.ai/active/current/PLAN.md`
-   - Each wave must have: domain-based name (e.g. `Wave 1: Authentication`), dependencies, files touched, acceptance criteria
-   - **Never use generic names** like "Wave 1", "Wave 2"
+## Step 2 — Select next feature
+Load `.ai/agents/architect.md`
+- Read `REQUIREMENTS.md` → present highest priority items to user → confirm selection
 
-### [WAVE LOOP — repeat for each wave in PLAN.md]
-10. Load agent `.ai/agents/tester.md`:
-    - Read SPEC acceptance criteria for the current wave
-    - Write tests organized by domain/business function
-    - Confirm all tests are RED (failing) before handoff
-    - Report: "[N] tests written, all failing, [Wave name] ready"
-    - **Handoff trigger:** when Tester reports this message → immediately load `.ai/agents/implementor.md`
+---
 
+## Step 3 — Design phase
+Architect:
+- Writes `.ai/active/current/SPEC.md`
+- Gets user approval (hard gate — never skip)
+- Creates `.ai/active/current/STATE.md` with first checkpoint
+- Creates `.ai/active/current/PLAN.md`
 
-11. Load agent `.ai/agents/implementor.md`:
-    - Green phase: write minimal code for each test in order of **simple → complex**
-    - Do NOT run tests — Tester owns test execution
-    - Update STATE.md checkpoint after completing the full wave
-    - **Retry limit — no exceptions:**
-      - Stuck on one test after **3 attempts** → stop, do not retry
-      - Escalate to Architect with: which test is blocked, what was attempted, exact error
-      - Architect reviews plan, uses web search if needed, provides specific guidance
-      - Implementor resumes following Architect's guidance
-      - Still stuck after Architect guidance → escalate to user
-    - After all wave code written: Refactor within current wave scope only
-    - Report: "Wave [name] code complete. Ready for Tester GREEN confirmation."
-    - **Handoff trigger:** when Implementor reports this message → immediately load `.ai/agents/tester.md` for GREEN confirmation
+---
 
-11b. Load agent `.ai/agents/tester.md` → confirm GREEN:
-    - Run full suite: `pytest src/ --tb=short` — single command only
-    - All tests must pass → report: "Wave [name] GREEN — [N] tests passing"
-    - Any failures → route back to Implementor with exact test name + error
-    - Report: "Wave [name] GREEN — [N] tests passing"
-    - **Handoff trigger:** when Tester reports GREEN → proceed to next wave or Verifier
+## Step 4 — Wave loop
+Repeat for each wave in PLAN.md:
 
-12. Repeat steps 10–11 until all waves in PLAN.md are complete
+**4a. Test generation**
+Load `.ai/agents/tester.md` with context:
+- Current wave name and acceptance criteria from PLAN.md
+- SPEC path: `.ai/active/current/SPEC.md`
+- PLAN path: `.ai/active/current/PLAN.md`
 
-### [VERIFICATION]
-13. Load agent `.ai/agents/verifier.md` → run checklist in order:
+When Tester reports "[N] tests written, all failing" → proceed to 4b.
 
-    **V1 — Test suite:** 0 failures → PASS | any failures → FAIL
+**4b. Implementation**
+Load `.ai/agents/implementor.md` with context:
+- Current wave name and test files from PLAN.md
+- SPEC path: `.ai/active/current/SPEC.md`
+- PLAN path: `.ai/active/current/PLAN.md`
+- STATE path: `.ai/active/current/STATE.md`
 
-    **V2 — Linter + type check:** 0 errors → PASS | any errors → FAIL | warnings only → WARN
+When Implementor reports "Wave [name] code complete" → proceed to 4c.
 
-    **V3 — SPEC coverage:** every acceptance criteria has at least one test → PASS | missing → FAIL
+**4c. GREEN confirmation**
+Load `.ai/agents/tester.md` for GREEN phase with context:
+- Wave name just completed
+- Test files for this wave
 
-    **V4 — UI verification:**
-    - Mandatory if project contains any of: `templates/`, `*.html`, `*.jsx`, `*.vue`, `*.svelte`
-    - Never self-declare "N/A" if condition above is met
-    - Load `.claude/skills/dev/` (Playwright) — click through all major buttons/links, must have visible response
-    - No UI files present → genuinely N/A
+When Tester reports "Wave [name] GREEN" → proceed to next wave or Step 5.
 
-    **V5 — Security spot check:** injection points, auth bypass, exposed secrets
+---
 
-    **Outcome:**
-    | Result | Condition | Action |
-    |--------|-----------|--------|
-    | ✅ PASS | No FAIL in any step | Proceed to ingestion |
-    | ⚠️ WARN | V2 warnings only, no FAIL | Log in STATE.md, proceed to ingestion |
-    | ❌ FAIL | Any step returns FAIL | Stop, route to correct agent |
+## Step 5 — Verification
+Load `.ai/agents/verifier.md`
 
-    **Routing on FAIL:**
-    - V1 / V3 → Tester or Implementor
-    - V2 errors → Implementor
-    - V4 → Implementor (fix UI)
-    - V5 → Architect reviews SPEC → Implementor fixes code
+Verifier runs V1–V5 checklist:
 
-### [BUG ROUTING — inline]
-    When Verifier or user finds a bug during current feature:
-    - Load `.ai/agents/debugger.md` → identify root layer (SPEC / PLAN / Test / Code)
-    - Layer = SPEC → Architect updates SPEC first → cascade to PLAN → Test → Code
-    - Layer = PLAN → Architect updates PLAN → re-run affected waves only
-    - Layer = Test / Code → route to Tester / Implementor → re-run that wave
-    - **Layer dispute:** fix does not work after 2 attempts → escalate to user, do not self-loop
+| Check | Pass | Fail | Warn |
+|-------|------|------|------|
+| V1 — Test suite | 0 failures | any failure | — |
+| V2 — Linter/types | 0 errors | any error | warnings only |
+| V3 — SPEC coverage | all AC covered | missing AC | — |
+| V4 — UI (if applicable) | all interactions respond | any broken | — |
+| V5 — Security | no issues | any issue | — |
 
-    When bug is from a LEGACY feature:
-    - Architect writes into STATE.md: `status = PAUSED, reason = [bug description]`
-    - Move `active/current/` → `active/paused/`
-    - Create new bug fix task in `active/current/`
-    - Run full 5-step workflow for the bug fix
-    - After bug fix ingested → run `/workflow resume`
+**V4 is mandatory** if project contains `templates/`, `*.html`, `*.jsx`, `*.vue`, `*.svelte` — cannot self-declare N/A.
 
-### [INGESTION]
-14. If PASS or WARN → load agent `.ai/agents/architect.md`:
-    - Load `.ai/skills/wiki_agent.md` → run Ingest workflow
-    - Run `npx gitnexus analyze`
-    - Run `npx gitnexus wiki` *(requires LLM API key — skip if not configured)*
-    - Update `ROADMAP.md` milestone status
-15. Archive `active/current/` → `llm-wiki/raw/history/YYYY-MM-DD-[feature]/`
-16. Clear `.ai/active/current/`
-17. Confirm: "Feature ingested. Run `/workflow run` to start the next feature."
+**Outcomes:**
+- ✅ PASS — no FAIL in any step → proceed to Step 6
+- ⚠️ WARN — V2 warnings only → log in STATE.md, proceed to Step 6
+- ❌ FAIL — any step fails → route to correct agent:
+  - V1/V3 → Tester or Implementor
+  - V2 errors → Implementor
+  - V4 → Implementor
+  - V5 → Architect reviews SPEC → Implementor fixes code
+
+**Bug routing on FAIL:**
+- Load `.ai/agents/debugger.md` → identify root layer (SPEC / PLAN / Test / Code)
+- Fix at root layer → cascade downward → re-run affected waves only
+- Layer dispute after 2 attempts → escalate to user
+
+---
+
+## Step 6 — Ingestion
+Load `.ai/agents/architect.md`
+- Run wiki ingest workflow
+- Run `npx gitnexus analyze`
+- Run `npx gitnexus wiki` (skip if no LLM API key)
+- Update `ROADMAP.md` milestone status
+- Archive `active/current/` → `llm-wiki/raw/history/YYYY-MM-DD-[feature]/`
+- Clear `.ai/active/current/`
+
+Confirm: "Feature complete. Run `/workflow run` to start the next feature."
+
+---
+
+## Resume Logic
+When STATE.md shows in-progress work, read last checkpoint and continue:
+
+| Last checkpoint in STATE.md | Resume from |
+|-----------------------------|-------------|
+| SPEC APPROVED | Step 3 — create STATE + PLAN |
+| PLAN WRITTEN | Step 4 — start first wave |
+| Wave [N] code complete | Step 4c — GREEN confirmation for Wave [N] |
+| Wave [N] GREEN | Step 4a — next wave test generation |
+| All waves complete | Step 5 — Verification |

@@ -198,6 +198,7 @@ Split only when genuinely reused — no structural over-engineering.
 
 ## What still needs to be done
 
+
 **Future (not in scope yet):**
 7. `setup_project` script — one command to bootstrap everything
 8. CLI to port `.ai/` to other providers

@@ -7,7 +7,7 @@ description: Run the full AI development workflow. Invoke when user wants to bui
 
 ## Arguments
 - `init` — Initialize a new project → @init.md
-- `run` — Build the next feature from REQUIREMENTS.md → @run.md
+- `run` — Build next feature or resume in-progress work → @run.md
 - `status` — Show current task progress
 - `resume` — Resume a paused task after bug fix is complete
 
@@ -21,7 +21,7 @@ description: Run the full AI development workflow. Invoke when user wants to bui
 ---
 
 ## /workflow resume
-1. Confirm `.ai/active/current/` is empty (bug fix has been archived)
-2. Move `.ai/active/paused/` contents → `.ai/active/current/`
-3. Read `STATE.md` to find last checkpoint
-4. Continue workflow from that checkpoint
+1. Read `.ai/active/paused/STATE.md` — confirm a paused task exists
+2. Check `.ai/active/current/` is empty — if not, tell user to resolve current task first
+3. Move `.ai/active/paused/` contents → `.ai/active/current/`
+4. Read `STATE.md` last checkpoint → continue from that point (same resume logic as `/workflow run`)
