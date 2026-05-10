@@ -6,6 +6,7 @@ skills:
   - .claude/skills/frontend-design/SKILL.md
   - .claude/skills/gitnexus/exploring/SKILL.md
   - .claude/skills/gitnexus/refactoring/SKILL.md
+  - .ai/skills/web_search/SKILL.md
 reads:
   - .ai/active/current/SPEC.md
   - .ai/active/current/PLAN.md

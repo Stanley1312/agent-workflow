@@ -5,6 +5,7 @@ model: claude-sonnet-4-5
 skills:
   - .claude/skills/dev/SKILL.md
   - .claude/skills/gitnexus/impact-analysis/SKILL.md
+  - .ai/skills/web_search/SKILL.md
 reads:
   - .ai/active/current/SPEC.md
   - .ai/active/current/STATE.md

@@ -7,6 +7,7 @@ skills:
   - .claude/skills/gitnexus/exploring/SKILL.md
   - .claude/skills/gitnexus/impact-analysis/SKILL.md
   - .ai/skills/wiki_agent.md
+  - .ai/skills/web_search/SKILL.md
 reads:
   - REQUIREMENTS.md
   - llm-wiki/wiki/**

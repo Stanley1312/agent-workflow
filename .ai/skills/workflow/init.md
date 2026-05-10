@@ -4,6 +4,7 @@
 
 1. Load agent `.ai/agents/strategist.md`
 2. Load skill `.ai/skills/discuss.md`
+3. Load skill `.ai/skills/web_search/SKILL.md` — verify mmx-cli is installed and authenticated
 
 ## Discovery Interview
 

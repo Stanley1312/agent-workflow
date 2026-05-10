@@ -43,6 +43,14 @@ llm-wiki/
 ```
 **Agents create this structure themselves** — do not defer to `/workflow init`.
 
+## 4. Web Search (mmx-cli)
+```bash
+npm install -g @minimax-ai/mmx-cli
+```
+**Purpose:** Web search for agent research. Default provider in `.ai/skills/web_search/SKILL.md`.
+**Verify:** `mmx --version && mmx search query --q "test" --output json`
+**Auth:** `mmx auth login` if not already authenticated
+
 ## Quick Install All
 ```bash
 npm install -g gitnexus @gitnexus/dev
