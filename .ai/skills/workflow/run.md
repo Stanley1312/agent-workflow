@@ -40,6 +40,9 @@
     - Write tests organized by domain/business function
     - Confirm all tests are RED (failing) before handoff
     - Report: "[N] tests written, all failing, [Wave name] ready"
+    - **Handoff trigger:** when Tester reports this message → immediately load `.ai/agents/implementor.md`
+
+11. Load agent `.ai/agents/implementor.md`:
 
 11. Load agent `.ai/agents/implementor.md`:
     - Green phase: write minimal code for each test in order of **simple → complex**
@@ -53,11 +56,14 @@
       - Still stuck after Architect guidance → escalate to user
     - After all wave code written: Refactor within current wave scope only
     - Report: "Wave [name] code complete. Ready for Tester GREEN confirmation."
+    - **Handoff trigger:** when Implementor reports this message → immediately load `.ai/agents/tester.md` for GREEN confirmation
 
 11b. Load agent `.ai/agents/tester.md` → confirm GREEN:
     - Run full suite: `pytest src/ --tb=short` — single command only
     - All tests must pass → report: "Wave [name] GREEN — [N] tests passing"
     - Any failures → route back to Implementor with exact test name + error
+    - Report: "Wave [name] GREEN — [N] tests passing"
+    - **Handoff trigger:** when Tester reports GREEN → proceed to next wave or Verifier
 
 12. Repeat steps 10–11 until all waves in PLAN.md are complete
 
