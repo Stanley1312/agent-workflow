@@ -42,7 +42,6 @@
     - Report: "[N] tests written, all failing, [Wave name] ready"
     - **Handoff trigger:** when Tester reports this message → immediately load `.ai/agents/implementor.md`
 
-11. Load agent `.ai/agents/implementor.md`:
 
 11. Load agent `.ai/agents/implementor.md`:
     - Green phase: write minimal code for each test in order of **simple → complex**
