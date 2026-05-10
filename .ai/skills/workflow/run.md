@@ -42,7 +42,8 @@
     - Report: "[N] tests written, all failing, [Wave name] ready"
 
 11. Load agent `.ai/agents/implementor.md`:
-    - Green phase: make each test pass in order of **simple → complex**
+    - Green phase: write minimal code for each test in order of **simple → complex**
+    - Do NOT run tests — Tester owns test execution
     - Update STATE.md checkpoint after completing the full wave
     - **Retry limit — no exceptions:**
       - Stuck on one test after **3 attempts** → stop, do not retry
@@ -50,9 +51,13 @@
       - Architect reviews plan, uses web search if needed, provides specific guidance
       - Implementor resumes following Architect's guidance
       - Still stuck after Architect guidance → escalate to user
-    - After all wave tests green: Refactor within current wave scope only
-    - Run full suite after refactor — must stay green
-    - Report: "Wave [name] complete, [N] tests passing"
+    - After all wave code written: Refactor within current wave scope only
+    - Report: "Wave [name] code complete. Ready for Tester GREEN confirmation."
+
+11b. Load agent `.ai/agents/tester.md` → confirm GREEN:
+    - Run full suite: `pytest src/ --tb=short` — single command only
+    - All tests must pass → report: "Wave [name] GREEN — [N] tests passing"
+    - Any failures → route back to Implementor with exact test name + error
 
 12. Repeat steps 10–11 until all waves in PLAN.md are complete
 
