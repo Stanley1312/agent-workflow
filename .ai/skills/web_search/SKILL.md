@@ -7,48 +7,43 @@ description: Configurable web search. Default uses mmx search, but supports Tavi
 
 ## Provider Configuration
 
-Edit the `PROVIDER` variable below to switch between web search providers:
+This skill uses the MiniMax MMX CLI for web search.
 
 | Provider | Value | Command |
 |----------|-------|---------|
-| **mmx (default)** | `mmx` | `mmx search query --q "<term>"` |
-| **Tavily** | `tavily` | `tavily search "<term>"` |
-
-## Current Provider
-
-```
-PROVIDER=mmx
-```
+| **MiniMax MMX** | `mmx` | `mmx search query --q "<term>" --output json --quiet` |
 
 ## Agent Usage
 
-Agents must use Bash to execute the configured search command:
+Agents must use Bash to execute the search command:
 
 ```bash
-# When PROVIDER=mmx (default)
-mmx search query --q "<search term>" --output json
-
-# When PROVIDER=tavily
-tavily search "<search term>"
+mmx search query --q "<search term>" --output json --quiet
 ```
 
-## Provider Switching
+## JSON Output Format
 
-To switch providers:
+When using mmx with `--output json --quiet`, the output is a JSON array of search results:
 
-1. Change the `PROVIDER` value at the top of this file
-2. Install the new provider's CLI if not already installed:
-   - mmx: `npm install -g @minimax-ai/mmx-cli`
-   - Tavily: `npm install -g tavily`
-3. Authenticate if needed (`mmx auth login` for mmx)
-4. Verify with a test search
+```json
+[
+  {
+    "title": "Result Title",
+    "url": "https://example.com",
+    "snippet": "Description of the result..."
+  },
+  ...
+]
+```
+
+Parse with `jq` or feed directly to downstream tools.
 
 ## Installation (for /setup)
 
 ```bash
-npm install -g @minimax-ai/mmx-cli
+npm install -g mmx-cli
 ```
 
-**Verify:** `mmx --version && mmx search query --q "test" --output json`
+**Verify:** `mmx --version && mmx search query --q "test" --output json --quiet`
 
 **Auth:** `mmx auth login` if not already authenticated
