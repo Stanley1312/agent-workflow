@@ -1,11 +1,6 @@
 ---
-id: wiki_agent
-description: Build and maintain the persistent LLM wiki (second brain) for this project
-compatible-with: [architect, debugger]
-triggers:
-  - post-task ingestion
-  - /workflow init (first run — creates llm-wiki/ structure)
-  - on-demand query against accumulated knowledge
+name: wiki_agent
+description: "Build and maintain the persistent LLM wiki (second brain) for this project. Triggers on post-task ingestion, /workflow init (first run — creates llm-wiki/ structure), and on-demand queries against accumulated knowledge. Compatible with architect and debugger skills."
 ---
 
 # Skill: Wiki Agent
