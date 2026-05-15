@@ -27,7 +27,7 @@ Key rules:
 - Do not form opinions or make recommendations during the interview
 - Do NOT proceed until user confirms the synthesis
 
-After confirmed synthesis, generate `CLAUDE.md` Part 1 into the **root folder**:
+After confirmed synthesis, update `CLAUDE.md` if it exists, if not create one, Part 1 into the **root folder**:
 ```
 ## Project Overview
 [1 paragraph summary — outcomes, not features]

@@ -31,7 +31,7 @@ For each test:
 After writing code for ALL tests in the wave:
 4. Refactor (see Refactor Rules)
 5. Update STATE.md checkpoint
-6. Report handoff — Tester will confirm GREEN
+6. Report handoff "Wave [name] code complete" — Tester will confirm GREEN
 
 **You do not run tests.** Tester owns test execution. Your output is code that satisfies the test contracts.
 
