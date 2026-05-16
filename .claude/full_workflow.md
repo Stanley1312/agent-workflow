@@ -1,5 +1,5 @@
 ---
-id: full_workflow
+name: full_workflow
 description: AI development workflow knowledge base — read this to understand the full flow, agent roles, and exception handling
 ---
 
