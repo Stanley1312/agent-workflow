@@ -77,6 +77,16 @@ Each agent file defines its own behaviour — invoke it, don't repeat or overrid
 
 ## Bug Routing
 
+## Chain of Truth
+
+```
+SPEC → PLAN → Tests → Code
+```
+
+Always fix at the root layer and cascade down. Never patch code without first updating the layer above it.
+
+---
+
 ### During a current feature
 ```
 Debugger identifies root layer: SPEC / PLAN / Test / Code
@@ -96,16 +106,8 @@ Architect: pause current STATE.md
 
 ---
 
-## Chain of Truth
 
-```
-SPEC → PLAN → Tests → Code
-```
-
-Always fix at the root layer and cascade down. Never patch code without first updating the layer above it.
-
----
-
+<!-- 
 ## /workflow status
 
 1. Read `.ai/active/current/STATE.md` — print wave progress.
@@ -119,4 +121,4 @@ Always fix at the root layer and cascade down. Never patch code without first up
 1. Read `.ai/active/paused/STATE.md` — confirm a paused task exists.
 2. Confirm `.ai/active/current/` is empty — if not, tell the user to resolve the current task first.
 3. Move `.ai/active/paused/` contents → `.ai/active/current/`.
-4. Read `STATE.md` last checkpoint → continue from that point (same resume logic as `/workflow run`).
+4. Read `STATE.md` last checkpoint → continue from that point (same resume logic as `/workflow run`). -->

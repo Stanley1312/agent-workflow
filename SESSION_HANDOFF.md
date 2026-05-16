@@ -9,27 +9,41 @@ Future vision: build a CLI that ports `.ai/` to other providers (Gemini, etc.) �
 
 ---
 
-## Architecture principles (finalized this session)
+## Collaboration rules
+- Chat: **tiếng Việt**
+- File content: **tiếng Anh**
+- User pastes full file → Claude returns full corrected file (không gửi diff riêng)
+- Không regenerate file nếu user chưa paste nội dung hiện tại
 
-**`.ai/` = single source of truth**
+---
+
+## Core architecture principles (finalized)
+
+### `.ai/` = single source of truth
 - Agent files define behavior — never repeat or override in handoff prompts
 - `.claude/agents/` = thin wrappers that point to `.ai/agents/`
+- `.claude/skills/` = thin wrappers that point to `.ai/skills/`
+- `.claude/full_workflow.md` = **deprecated** — nội dung đã được merge vào `.ai/skills/workflow/SKILL.md`. Có thể xóa hoặc giữ làm human reference, nhưng không còn là source of truth.
 
-**Responsibility separation:**
-- `full_workflow.md` — flow only: agent roles, order, bug routing. No step-by-step behavior.
+### Responsibility separation
+- `SKILL.md` (workflow) — entry point for `/workflow` commands + full workflow knowledge
 - `agent files` — behavior + files touched (single source of truth per agent)
-- `run.md` — user-facing command, resume-oriented, passes context only
-- `SKILL.md` — entry point for commands, no behavior details
+- `run.md` — `/workflow run` logic: resume-oriented, context-passing only
+- `init.md` — `/workflow init` logic
 
-**Agent handoff language rule (architect.md):**
+### Chain of Truth
+```
+SPEC → PLAN → Tests → Code
+```
+Always fix at the root layer and cascade down. Never patch code without updating the layer above first.
+
+### Agent handoff language rule
 - Say "write code to satisfy tests" — never "make tests pass"
 - Implementor does NOT run tests — Tester owns ALL test execution
 - Handoff prompts must only pass context, never restate agent behavior
 
-**Tester owns test execution:**
-- RED phase: single command after writing ALL tests
-- GREEN phase: single command after Implementor reports "code complete"
-- Verifier V1: calls Tester Re-run Protocol, does not run tests directly
+### Bug Routing — hard rule
+No agent may investigate or fix a bug on their own. All bugs go through `.ai/skills/bug_routing/SKILL.md` first — always.
 
 ---
 
@@ -41,7 +55,7 @@ project-root/
 ├── REQUIREMENTS.md                  ← Feature backlog P0/P1/P2
 │
 ├── .claude/
-│   ├── full_workflow.md             ← Flow + agent roles + bug routing (no behavior details)
+│   ├── full_workflow.md             ← DEPRECATED — kept as human reference only
 │   ├── agents/                      ← Thin wrappers → point to .ai/agents/
 │   │   ├── strategist.md
 │   │   ├── architect.md
@@ -49,90 +63,47 @@ project-root/
 │   │   ├── implementor.md
 │   │   ├── verifier.md
 │   │   └── debugger.md
-│   ├── skills/
-│   │   ├── discuss/SKILL.md         ← Points to .ai/skills/discuss/SKILL.md
-│   │   ├── debug/SKILL.md           ← Points to .ai/skills/debug/SKILL.md
-│   │   ├── explore/SKILL.md         ← Points to .ai/skills/explore/SKILL.md
-│   │   ├── gitnexus/                ← Auto-installed
-│   │   └── dev/                     ← Auto-installed: playwright
-│   └── settings.local.json          ← Allowed bash commands (no python3 * broad allow)
+│   └── skills/
+│       ├── discuss/SKILL.md
+│       ├── debug/SKILL.md
+│       ├── explore/SKILL.md
+│       ├── workflow/SKILL.md
+│       ├── web_search/SKILL.md
+│       ├── bug_routing/SKILL.md     ← NEW this session
+│       ├── frontend-design/SKILL.md ← Added by user, needs wrapper created
+│       ├── gitnexus/                ← Auto-installed
+│       └── dev/                     ← Auto-installed: playwright
 │
 ├── .ai/                             ← SINGLE SOURCE OF TRUTH
 │   ├── agents/
 │   │   ├── strategist.md
-│   │   ├── architect.md
-│   │   ├── tester.md
-│   │   ├── implementor.md
-│   │   ├── verifier.md
+│   │   ├── architect.md             ← Updated this session
+│   │   ├── tester.md                ← Updated this session
+│   │   ├── implementor.md           ← Updated this session
+│   │   ├── verifier.md              ← Updated this session
 │   │   └── debugger.md
 │   ├── skills/
 │   │   ├── workflow/
-│   │   │   ├── SKILL.md            ← Entry point: /workflow commands
+│   │   │   ├── SKILL.md            ← Entry point: /workflow commands + full workflow knowledge
 │   │   │   ├── init.md             ← /workflow init logic
 │   │   │   └── run.md              ← /workflow run: resume-oriented
 │   │   ├── discuss/SKILL.md
 │   │   ├── explore/SKILL.md
 │   │   ├── debug/SKILL.md
-│   │   └── wiki_agent/SKILL.md
+│   │   ├── wiki_agent/SKILL.md
+│   │   ├── web_search/SKILL.md
+│   │   ├── setup/SKILL.md
+│   │   └── bug_routing/SKILL.md    ← NEW this session
 │   ├── active/
 │   │   ├── current/                ← Running task (SPEC, PLAN, STATE)
 │   │   └── paused/                 ← Paused task during legacy bug fix
 │   └── templates/
-│       ├── SPEC.template.md
+│       ├── SPEC.template.md         ← Updated this session (UX Flows section added)
 │       ├── PLAN.template.md
 │       └── STATE.template.md
+│
+└── SESSION_HANDOFF.md               ← This file
 ```
-
----
-
-## Changes made this session
-
-| File | Change |
-|------|--------|
-| `.claude/full_workflow.md` | Rewritten — flow only, no behavior details |
-| `.ai/agents/implementor.md` | Added Files section, fixed language "satisfy" not "pass", removed test-running |
-| `.ai/agents/tester.md` | Added Files section, added GREEN phase section, single command for RED/GREEN |
-| `.ai/agents/architect.md` | Added Agent Handoff Language rules |
-| `.ai/agents/verifier.md` | Fixed V1 calls Tester (not self-run), added Files section, fixed duplicate text |
-| `.ai/agents/strategist.md` | Fixed description, fixed skill paths, added Files section |
-| `.ai/skills/workflow/run.md` | Rewritten — resume-oriented, context-passing only, no behavior repetition |
-| `.ai/skills/workflow/SKILL.md` | Aligned resume logic with run.md |
-| `.ai/skills/workflow/init.md` | Fixed paths, fixed numbering |
-| `.claude/agents/*.md` | All wrappers: fixed descriptions, removed command references |
-| `.claude/skills/*/SKILL.md` | Fixed internal paths (discuss.md → discuss/SKILL.md etc.) |
-| `CLAUDE.md` | Fixed all skill paths |
-| `.claude/settings.local.json` | Removed broad `python3 *`, added `npx gitnexus *`, `rm -rf /tmp/tmp*` |
-
----
-
-## Issues identified but NOT yet fixed (do in next session)
-
-### 1. `/workflow resume` should be merged into `/workflow run`
-Both commands have overlapping purpose. `run` should auto-detect all state cases:
-- `active/current/` in-progress → resume current
-- `active/current/` PAUSED → restore from paused/ then resume
-- `active/current/` empty → start new feature
-
-`/workflow resume` command should be removed. `architect.md` still references it.
-
-### 2. Legacy bug interrupt flow incomplete
-Current state: `architect.md` has the protocol but trigger chain is broken.
-
-Missing:
-- **Verifier has no legacy bug path** — if V1 fails from a legacy bug, Verifier only routes to Tester/Implementor, no path to trigger Debugger → Architect interrupt
-- **Main agent trigger unclear** — who decides to call Interrupt Protocol after Debugger report?
-- **After bug fix ingested** → `run.md` needs to auto-restore paused task (currently manual)
-- `architect.md` references `/workflow resume` which will be removed
-
-### 3. Parallel wave execution (discussed, not designed)
-Idea: waves with no dependencies can run in parallel via Claude Code Task tool.
-- Wave 0: shared infrastructure (sequential)
-- Independent domain waves: parallel batch
-- Requires `PLAN.md` to have `Domain files` + `Shared files: READ ONLY` fields
-- Requires Architect to detect parallel opportunities after writing PLAN
-
-### 4. Running test RAM issue — unresolved
-User reported RAM overflow during pytest runs. Likely cause: Implementor was running tests per-test in a loop (fixed this session). Need to verify fix resolved it after next test run.
 
 ---
 
@@ -142,22 +113,230 @@ User reported RAM overflow during pytest runs. Likely cause: Implementor was run
 |-------|-------|-------|------|
 | Strategist | opus | Read, Write | Discovery, Requirements |
 | Architect | opus | Read, Write, Edit, Bash, Glob, Grep | SPEC, PLAN, escalation, ingestion |
-| Tester | sonnet | Read, Write, Edit, Bash, Glob, Grep | Write tests (RED), confirm pass (GREEN) |
-| Implementor | haiku | Read, Write, Edit, Glob, Grep | Write code to satisfy tests (no Bash) |
+| Tester | sonnet | Read, Write, Edit, Bash, Glob, Grep | Write tests (RED), confirm pass (GREEN), Playwright for UI/E2E wave |
+| Implementor | haiku | Read, Write, Edit, Glob, Grep | Write code to satisfy tests (NO Bash tool) |
 | Verifier | sonnet | Read, Bash, Glob, Grep | Quality gate V1-V5 |
-| Debugger | opus | Read, Bash, Glob, Grep | Root cause only — cannot write code |
+| Debugger | opus | Read, Bash, Glob, Grep | Root cause analysis only — cannot write code |
 
-**Note:** Implementor has NO Bash tool — this enforces the "no test running" rule at the tool level.
+**Note:** Implementor has NO Bash tool — enforces "no test running" rule at tool level.
 
 ---
 
-## Collaboration rules
-- Chat: **tiếng Việt**
-- File content: **tiếng Anh**
-- Only send **diff or header** when body already exists — never regenerate full file
-- User pastes file → Claude returns specific changes → user applies → commit
+## The Golden Loop
+
+```
+REQUIREMENTS.md
+      ↓
+Step 1: DISCOVERY         (Strategist)
+      ↓
+Step 2: TECHNICAL DESIGN  (Architect)  ← loads frontend-design skill if UI in scope
+      ↓
+Step 3: TEST GENERATION   (Tester)  ←─────────────────────────────────┐
+      ↓                                                                 │ repeat per wave
+Step 4: IMPLEMENTATION    (Implementor) ──────────────────────────────┘
+      ↓  (last wave = UI/E2E wave if UX Flows in SPEC)
+Step 5: VERIFICATION + INGESTION  (Verifier + Architect)
+      ↓
+llm-wiki/ updated → active/ cleared → REQUIREMENTS.md updated
+      ↑_______________________________________________________________|
+```
+
+---
+
+## UI/E2E Wave — New Design (finalized this session)
+
+### Tester owns:
+- Per-wave: unit tests + integration tests (RED → GREEN cycle)
+- UI/E2E wave (always last wave): Playwright automation tests, one test file per UX Flow defined in SPEC
+
+### Verifier owns:
+- **V1:** Run full test suite via Tester Re-run Protocol
+- **V2:** Lint + types
+- **V3:** SPEC coverage audit — every AC must have a test
+- **V4 (3 steps):**
+  - 4a: Run `npx playwright test` — automation suite must pass
+  - 4b: Open real browser → follow each UX Flow in SPEC step by step as script
+  - 4c: Coverage audit — every UX Flow in SPEC must have a Playwright test
+- **V5:** Security spot check
+
+### Architect owns:
+- If SPEC has UX Flows → PLAN must include UI/E2E wave as **last wave**
+- UI/E2E wave depends on ALL previous waves being GREEN
+
+### PLAN pattern:
+```
+Wave 1: [Domain A]     → unit + integration tests
+Wave 2: [Domain B]     → unit + integration tests
+...
+Wave N: UI/E2E         → Playwright tests for all UX Flows in SPEC
+```
+
+---
+
+## UX Flows — Format (finalized this session)
+
+Defined in SPEC by Architect. Used by Tester as Playwright script. Used by Verifier as browser script.
+
+```markdown
+### Flow N: [Flow name]
+**Role:** [user role]
+**Entry point:** [URL or action]
+
+1. [Action]
+   → Expected: [what appears/happens]
+
+2. [Next action]
+   → Expected: [what appears/happens]
+
+**Flow pass when:** all steps match expected, no manual URL editing required.
+**Flow fail when:** any step redirects wrong, blank screen, or element does not respond.
+```
+
+**Rules:**
+- Every flow reachable without manually editing URL
+- Every user role has a defined default landing page
+- All error states redirect somewhere sensible — no blank screens
+- Architect loads `.claude/skills/frontend-design/SKILL.md` before writing any UI-related SPEC sections
+
+---
+
+## Bug Routing — New Skill (created this session)
+
+### `.ai/skills/bug_routing/SKILL.md`
+```
+Any agent encounters bug/unexpected behavior/test failure
+→ STOP — do not investigate or self-fix
+→ Invoke .ai/skills/bug_routing/SKILL.md
+→ Report raw symptom to Debugger ("test X failed with error Y")
+→ Wait for Debugger's layer report (SPEC / PLAN / Test / Code / Legacy)
+→ Route based on layer:
+   SPEC    → Architect (revise SPEC → cascade)
+   PLAN    → Architect (revise PLAN → re-run affected waves)
+   Test    → Tester (fix tests → re-run RED)
+   Code    → Implementor (fix code → Tester confirms GREEN)
+   Legacy  → Architect (Interrupt Protocol — pause current task)
+→ Layer dispute after 2 attempts → escalate to user
+```
+
+**Key design decision:** The invoking agent only reports raw symptom — Debugger collects full context and determines layer. Agent does not need to analyze.
+
+---
+
+## Interrupt Protocol (legacy bug)
+
+```
+Debugger reports Layer = Legacy
+→ Architect: set active/current/STATE.md status = PAUSED with reason
+→ Move active/current/ contents → active/paused/
+→ Create new SPEC/PLAN for bug fix in active/current/
+→ Run full 5-step workflow for bug fix
+→ After bug fix ingested → run /workflow run
+   (run.md auto-detects active/paused/ and restores)
+```
+
+---
+
+## Changes made across all sessions
+
+### Session 1 (previous — from original handoff)
+| File | Change |
+|------|--------|
+| `.claude/full_workflow.md` | Rewritten — flow only, no behavior details |
+| `.ai/agents/implementor.md` | Added Files section, fixed language, removed test-running |
+| `.ai/agents/tester.md` | Added Files section, GREEN phase section, single command rule |
+| `.ai/agents/architect.md` | Added Agent Handoff Language rules |
+| `.ai/agents/verifier.md` | Fixed V1 calls Tester, added Files section |
+| `.ai/agents/strategist.md` | Fixed description, fixed skill paths, added Files section |
+| `.ai/skills/workflow/run.md` | Rewritten — resume-oriented, context-passing only |
+| `.ai/skills/workflow/SKILL.md` | Aligned resume logic with run.md |
+| `.ai/skills/workflow/init.md` | Fixed paths and numbering |
+| `.claude/agents/*.md` | All wrappers: fixed descriptions, removed command references |
+| `.claude/skills/*/SKILL.md` | Fixed internal paths |
+| `CLAUDE.md` | Fixed all skill paths |
+| `.claude/settings.local.json` | Removed broad `python3 *`, added `npx gitnexus *` |
+
+### Session 2 (this session)
+| File | Change |
+|------|--------|
+| `.ai/skills/bug_routing/SKILL.md` | **NEW** — bug routing protocol skill |
+| `.claude/skills/bug_routing/SKILL.md` | **NEW** — wrapper pointing to .ai/ |
+| `.ai/agents/verifier.md` | V4 upgraded (3 steps: Playwright + real browser + coverage audit), FAIL routing → bug_routing skill, V1/V2 FAIL → bug_routing, description updated |
+| `.ai/agents/tester.md` | Added UI/E2E Wave section (Playwright writing + RED/GREEN for E2E), description updated |
+| `.ai/agents/implementor.md` | Added Unexpected Behavior Rule (→ bug_routing), added frontend-design load for UI/E2E wave, description updated |
+| `.ai/agents/architect.md` | Added step 7 in Pre-SPEC Ritual (load frontend-design if UI scope), added UX Flows format + requirement, added UI/E2E wave rule in PLAN authoring, fixed Interrupt Protocol to use `/workflow run` not `/workflow resume`, description updated |
+| `.ai/templates/SPEC.template.md` | Added UX Flows section between Edge Cases and Acceptance Criteria |
+
+---
+
+## Issues identified but NOT yet fixed
+
+### 1. `/workflow resume` should be merged into `/workflow run` — PARTIALLY ADDRESSED
+`architect.md` Interrupt Protocol now says "run /workflow run" instead of "/workflow resume".
+But `run.md` Step 1 still has the old branch:
+> "File exists with PAUSED status → tell user: 'Run /workflow resume'"
+
+**Fix needed in `run.md` Step 1:**
+```
+- File exists with PAUSED status → auto-restore:
+  1. Move active/paused/ contents → active/current/
+  2. Read STATE.md last checkpoint → resume from that point
+```
+And remove `/workflow resume` section from `SKILL.md`.
+
+### 2. `workflow/SKILL.md` — FAIL routing still routes directly (not via bug_routing)
+In the Step 5 section of `run.md`/`SKILL.md`:
+```
+- V1/V3 → Tester or Implementor
+- V2 errors → Implementor
+- V4 → Implementor
+- V5 → Architect reviews SPEC → Implementor fixes code
+```
+Should be replaced with: "invoke `.ai/skills/bug_routing/SKILL.md`"
+
+### 3. Group 3 — All skills need optimization via skill-creator
+Scope: content + triggering for all `.ai/skills/` + `.claude/skills/` + `.claude/agents/`
+
+Priority issues found:
+| File | Issue |
+|------|-------|
+| `web_search/SKILL.md` | Description talks about config (mmx, Tavily) not when to trigger |
+| `wiki_agent/SKILL.md` | Description too long, "Compatible with..." is filler |
+| `discuss/SKILL.md` | "when any input feels vague" — too vague to trigger |
+| `debug/SKILL.md` | Not "pushy" enough |
+| `setup/SKILL.md` | Playwright install command wrong: `playwright-cli install --skills` doesn't exist |
+| `explore/SKILL.md` | Too thin, no fallback when GitNexus hasn't indexed yet |
+| `.claude/agents/*.md` | Descriptions need fine-tuning |
+| `.claude/skills/frontend-design/` | Wrapper doesn't exist yet — needs to be created |
+
+### 4. Parallel wave execution — not designed yet
+Waves with no dependencies could run in parallel via Claude Code Task tool.
+- Requires `PLAN.md` to have `Domain files` + `Shared files: READ ONLY` fields
+- Requires Architect to detect parallel opportunities after writing PLAN
+- Not in scope until core workflow is stable
+
+### 5. RAM issue with pytest — unresolved
+User reported RAM overflow during pytest runs. Likely fixed (Implementor was running tests per-test in a loop, now uses single command). Needs verification after next real run.
+
+---
+
+## Key design decisions (do not re-litigate)
+
+| Decision | Rationale |
+|----------|-----------|
+| `.ai/` = single source of truth | `.claude/` wrappers just point to `.ai/` — no behavior duplication |
+| Implementor has no Bash tool | Enforces "no test running" at tool level, not just rule level |
+| Tester owns all test execution | RED and GREEN both owned by Tester. Verifier calls Tester for re-run, not self-run |
+| UI/E2E wave is always last | Playwright needs full app running — can't write E2E until all domain waves done |
+| bug_routing as separate skill | Cross-cutting concern — belongs to no single agent. Good description = any agent auto-triggers |
+| Verifier V4 = automation + real browser | Automation catches regressions; real browser catches what automation misses (UX feel, visual) |
+| SPEC UX Flows = Playwright script | Format designed so Tester can translate step-by-step directly into Playwright assertions |
+| Debugger collects context, not invoking agent | Agent only reports raw symptom — avoids wrong analysis from agents without full context |
+| `/workflow resume` to be removed | `run.md` should auto-detect PAUSED state and restore — one command, no manual step |
+| `full_workflow.md` deprecated | Content merged into `workflow/SKILL.md` — agent reads it there |
+
+---
 
 ## How to continue in a new session
-> "I'm building an AI development workflow for Claude Code. Read SESSION_HANDOFF.md first, then help me continue."
+> "Tôi đang xây dựng một AI development workflow cho Claude Code. Đọc SESSION_HANDOFF.md trước, sau đó giúp tôi tiếp tục."
 
-Attach this file + latest `agent-workflow-fixed.zip`.
+Attach this file. Next priority: **Issues #1 and #2** (fix `run.md` PAUSED branch + remove `/workflow resume`, then Group 3 skill-creator optimization).

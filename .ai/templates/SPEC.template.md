@@ -45,8 +45,32 @@ linked_requirement: <!-- item from REQUIREMENTS.md -->
 
 ---
 
-## Acceptance Criteria
+## UX Flows
+<!-- DELETE this entire section if backend-only (no UI) -->
+<!-- One flow per major user journey. Tester will write one Playwright test per flow. -->
+<!-- Every flow must be reachable without manually editing the URL. -->
 
+### Flow 1: [Flow name]
+**Role:** [user role performing this flow]
+**Entry point:** [URL or action that starts this flow]
+
+1. [Action the user takes]
+   → Expected: [what appears or happens]
+
+2. [Next action]
+   → Expected: [what appears or happens]
+
+3. [Continue for all steps...]
+   → Expected: [what appears or happens]
+
+**Flow pass when:** all steps match expected, no manual URL editing required.
+**Flow fail when:** any step redirects wrong, shows blank screen, or element does not respond.
+
+<!-- Duplicate Flow block above for each additional user journey -->
+
+---
+
+## Acceptance Criteria
 <!-- Each AC must be testable. Vague ACs will be rejected. -->
 <!-- Tester will write one test per AC minimum. -->
 
@@ -67,9 +91,9 @@ linked_requirement: <!-- item from REQUIREMENTS.md -->
 ---
 
 ## Open Questions
-
 <!-- Resolve all questions before requesting approval -->
 <!-- Unresolved questions = DRAFT, cannot be approved -->
+
 - [ ] Q: ... — Owner: ...
 
 ---
