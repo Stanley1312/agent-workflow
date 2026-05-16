@@ -75,26 +75,6 @@ Each agent file defines its own behaviour — invoke it, don't repeat or overrid
 
 ---
 
-## Bug Routing
-
-## Chain of Truth
-
-```
-SPEC → PLAN → Tests → Code
-```
-
-Always fix at the root layer and cascade down. Never patch code without first updating the layer above it.
-
----
-
-### During a current feature
-```
-Debugger identifies root layer: SPEC / PLAN / Test / Code
-→ Fix at the root layer first, then cascade downward
-→ Re-run only the affected waves
-→ If layer is disputed after 2 attempts → escalate to user
-```
-
 ### Legacy bug interrupt
 ```
 Architect: pause current STATE.md
@@ -103,7 +83,7 @@ Architect: pause current STATE.md
 → Run the full workflow for the bug fix
 → Once ingested → run /workflow resume
 ```
-
+      
 ---
 
 
