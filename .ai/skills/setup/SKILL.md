@@ -1,6 +1,6 @@
 ---
 name: setup
-description: Install and verify required tools before running the workflow. Use before /workflow run or /workflow init.
+description: "Bootstrap script for CLI installation. Installs all required tools and creates initial project structure."
 ---
 # Setup: Required Tools
 Install these tools before running the workflow. Agents must verify installation before executing tasks.
@@ -12,13 +12,12 @@ npm install -g gitnexus
 **Verify:** `npx gitnexus --version`
 ## 2. Playwright (UI Verification)
 ```bash
-npm install -g @playwright/cli@latest
-playwright-cli install --skills
+npm install -g playwright
+npx playwright install
 ```
 **Purpose:** Browser automation for UI verification steps (Verifier Agent).
-**Verify:** `playwright-cli --version`
+**Verify:** `npx playwright --version`
 ## 3. LLM Wiki (Persistent Knowledge Base)
-Read `.llm-wiki/llm_coding_wiki.md` to understand the wiki concept.
 If `llm-wiki/` does not exist, CREATE it with this structure:
 ```
 llm-wiki/

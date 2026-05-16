@@ -1,104 +1,89 @@
 ---
 name: workflow
-description: "Run the full AI development workflow: Discovery → Design → Test → Implement → Verify. Use this skill whenever the user wants to build a feature, start a new project, check progress on a task, resume work after a bug fix, or run any /workflow command (init, run, status, resume). Also trigger when the user mentions REQUIREMENTS.md, SPEC.md, PLAN.md, STATE.md, or any of the agent roles (Strategist, Architect, Tester, Implementor, Verifier, Debugger). If in doubt, use this skill — it coordinates the whole development loop."
+description: "Orchestrates the full AI development workflow: Discovery → Design → Test → Implement → Verify. Invoke whenever the user wants to build something, start a feature, continue in-progress work, or coordinate any development step. Trigger on: 'build', 'create', 'implement', 'start feature', 'continue', 'what's next'."
 license: Proprietary. LICENSE.txt has complete terms
 ---
 
 # AI Development Workflow
 
-## The Golden Loop
-
-```
-REQUIREMENTS.md
-      ↓
-Step 1: DISCOVERY         (Strategist)
-      ↓
-Step 2: TECHNICAL DESIGN  (Architect)
-      ↓
-Step 3: TEST GENERATION   (Tester)  ←──────────────┐
-      ↓                                             │ repeat per wave
-Step 4: IMPLEMENTATION    (Implementor) ────────────┘
-      ↓
-Step 5: VERIFICATION + INGESTION  (Verifier + Architect)
-      ↓
-llm-wiki/ updated → active/ cleared → REQUIREMENTS.md updated
-      ↑_______________________________________________|
-```
+## Your Role: Orchestrator
+You coordinate this workflow using the **Agent tool** to invoke subagents.
+You do NOT write code, tests, or specs yourself.
 
 ---
 
-## Agent Roles
-
-| Agent | File | Responsibility |
-|-------|------|----------------|
-| Strategist | `.ai/agents/strategist.md` | Discovery interview → `REQUIREMENTS.md` |
-| Architect | `.ai/agents/architect.md` | `SPEC.md` + `PLAN.md` authoring, escalation, ingestion |
-| Tester | `.ai/agents/tester.md` | Write tests (RED), confirm pass (GREEN) |
-| Implementor | `.ai/agents/implementor.md` | Write code to satisfy tests |
-| Verifier | `.ai/agents/verifier.md` | Quality gate after all waves complete |
-| Debugger | `.ai/agents/debugger.md` | Root cause analysis only |
-
-Each agent file defines its own behaviour — invoke it, don't repeat or override it.
+## Step 0 — Always check state first
+Read `.ai/active/current/STATE.md`:
+- **In-progress** → skip to the correct step in Resume Table below
+- **PAUSED** → move `.ai/active/paused/` contents → `.ai/active/current/` → resume from checkpoint
+- **Not found** → proceed to Step 1
 
 ---
 
-## Arguments
-
-| Command | Action |
-|---------|--------|
-| `init` | Initialise a new project → follow `@init.md` |
-| `run` | Build next feature or resume in-progress work → follow `@run.md` |
-| `status` | Show current task progress → see [Status](#workflow-status) below |
-| `resume` | Resume a paused task after a bug fix → see [Resume](#workflow-resume) below |
+## Step 1 — Discovery
+Check if `REQUIREMENTS.md` has real content (not just placeholders):
+- **No real content** → invoke `strategist`:
+  > "Run discovery interview. Output: CLAUDE.md Part 1, REQUIREMENTS.md, ROADMAP.md."
+- **Has content** → skip to Step 2
 
 ---
 
-## Step-by-Step Reference
-
-### Step 1 — Discovery
-- **Agent:** Strategist
-- **Output:** `REQUIREMENTS.md` updated
-
-### Step 2 — Technical Design
-- **Agent:** Architect
-- **Output:** `SPEC.md` (user-approved) + `STATE.md` + `PLAN.md`
-- **HARD GATE:** The user must explicitly approve `SPEC.md` before proceeding. Do not advance without confirmation.
-
-### Steps 3 + 4 — Wave Loop *(repeat per wave in `PLAN.md`)*
-- **Step 3 — Test Generation:** Tester writes tests → confirms RED → reports back
-- **Step 4 — Implementation:** Implementor writes code → Tester confirms GREEN → advance to next wave
-
-### Step 5 — Verification + Ingestion
-- **Agent:** Verifier → runs V1–V5 checklist → reports outcome
-- **PASS / WARN:** Architect runs ingestion → archives task → clears `active/`
-- **FAIL:** Route to Bug Routing below
+## Step 2 — Select feature
+Invoke `architect`:
+> "Read REQUIREMENTS.md. Present highest-priority unstarted items to user. Confirm selection. Report back feature name + requirements."
 
 ---
 
-### Legacy bug interrupt
-```
-Architect: pause current STATE.md
-→ Move active/current/ → active/paused/
-→ Create new bug-fix task in active/current/
-→ Run the full workflow for the bug fix
-→ Once ingested → run /workflow resume
-```
-      
----
-
-
-<!-- 
-## /workflow status
-
-1. Read `.ai/active/current/STATE.md` — print wave progress.
-2. Check `.ai/active/paused/` — report any paused task and its reason.
-3. Summarise: current wave, completed tasks, blockers.
+## Step 3 — Design
+Invoke `architect`:
+> "Design phase for: [feature].
+> 1. Run Pre-SPEC Ritual
+> 2. Write SPEC.md — get user approval (hard gate)
+> 3. Create STATE.md (checkpoint: SPEC APPROVED)
+> 4. Write PLAN.md
+> Report when done."
 
 ---
 
-## /workflow resume
+## Step 4 — Wave loop
+Read PLAN.md → repeat for each wave:
 
-1. Read `.ai/active/paused/STATE.md` — confirm a paused task exists.
-2. Confirm `.ai/active/current/` is empty — if not, tell the user to resolve the current task first.
-3. Move `.ai/active/paused/` contents → `.ai/active/current/`.
-4. Read `STATE.md` last checkpoint → continue from that point (same resume logic as `/workflow run`). -->
+**4a. RED** — Invoke `tester`:
+> "Write tests for [wave]. Confirm all failing. Report: '[N] tests written, all failing'."
+
+**4b. Implement** — Invoke `implementor`:
+> "Write code to satisfy tests for [wave]. Do not run tests. Report: 'Wave [name] code complete'."
+
+**4c. GREEN** — Invoke `tester`:
+> "Run tests for [wave]. Report: 'Wave [name] GREEN' or report failures."
+
+- GREEN → update STATE.md → next wave
+- FAIL → invoke `.ai/skills/bug_routing/SKILL.md`
+
+---
+
+## Step 5 — Verify
+Invoke `verifier`:
+> "Run V1–V5 checklist on SPEC.md. Report each: PASS/WARN/FAIL."
+
+- PASS/WARN → Step 6
+- FAIL → invoke `.ai/skills/bug_routing/SKILL.md`
+
+---
+
+## Step 6 — Ingest
+Invoke `architect`:
+> "Run post-task ingestion: update llm-wiki/, archive active/current/, update ROADMAP.md, run npx gitnexus analyze."
+
+Done → tell user: "Feature complete. Say 'continue' to start next feature."
+
+---
+
+## Resume Table
+| STATE.md checkpoint | Resume from |
+|---------------------|-------------|
+| SPEC APPROVED | Step 3 — write PLAN |
+| PLAN WRITTEN | Step 4 — first wave |
+| Wave [N] code complete | Step 4c — GREEN for Wave [N] |
+| Wave [N] GREEN | Step 4a — next wave |
+| All waves complete | Step 5 |

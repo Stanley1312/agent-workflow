@@ -1,49 +1,26 @@
 ---
 name: web_search
-description: Configurable web search. Default uses mmx search, but supports Tavily and other providers. Edit this file to switch providers.
+description: "Use mmx CLI to search the web for up-to-date information. Invoke when research is needed: tech stack best practices, library docs, breaking changes, or any information that may be outdated in training data."
 ---
 
-# Web Search Skill
+# Web Search
 
-## Provider Configuration
-
-This skill uses the MiniMax MMX CLI for web search.
-
-| Provider | Value | Command |
-|----------|-------|---------|
-| **MiniMax MMX** | `mmx` | `mmx search query --q "<term>" --output json --quiet` |
-
-## Agent Usage
-
-Agents must use Bash to execute the search command:
-
+## Default: mmx CLI
 ```bash
 mmx search query --q "<search term>" --output json --quiet
 ```
 
-## JSON Output Format
-
-When using mmx with `--output json --quiet`, the output is a JSON array of search results:
-
+Output là JSON array:
 ```json
-[
-  {
-    "title": "Result Title",
-    "url": "https://example.com",
-    "snippet": "Description of the result..."
-  },
-  ...
-]
+[{ "title": "...", "url": "...", "snippet": "..." }]
 ```
 
-Parse with `jq` or feed directly to downstream tools.
+## Fallback: built-in tools
+Nếu mmx không available (chưa install hoặc auth fail) → dùng built-in `WebSearch` và `WebFetch` tools trực tiếp.
 
-## Installation (for /setup)
-
+## Installation
 ```bash
 npm install -g mmx-cli
+mmx auth login
 ```
-
-**Verify:** `mmx --version && mmx search query --q "test" --output json --quiet`
-
-**Auth:** `mmx auth login` if not already authenticated
+Verify: `mmx --version`

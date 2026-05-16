@@ -1,56 +1,51 @@
 ---
 name: bug_routing
-description: "Mandatory protocol for ALL agents when encountering any bug, unexpected behavior, test failure, or error. Invoke this skill immediately — before any investigation or fix attempt. Never self-diagnose. Never self-fix. This skill routes the bug to the correct agent via Debugger. Trigger on: test failures, runtime errors, behavior not matching SPEC, V1-V5 verification failures, or any output that doesn't match expectation."
+description: "Mandatory protocol when encountering any bug, test failure, or unexpected behavior. Invoke immediately — before any investigation or fix attempt. Trigger on: test failures, runtime errors, output not matching expectation, V1-V5 verification failures."
 ---
 
 # Bug Routing Protocol
 
 ## ⛔ Hard Rule
 No agent may investigate or fix a bug on their own.
-Invoke this skill first — always.
-
-Skipping this protocol = patching the wrong layer = compounding the problem.
+Skipping this = patching the wrong layer = compounding the problem.
 
 ---
 
-## Step 1 — Report raw symptom to Debugger
-
-You do not need to investigate. Report only what you directly observed:
+## Step 1 — Report raw symptom
+Invoke the `debugger` subagent via Agent tool with only what you observed:
 - "Test [name] failed with [error]"
 - "Output was [X] but expected [Y]"
-- "Error occurred at [file/line]"
+- "Error at [file/line]"
 
-Invoke `.ai/agents/debugger.md` with this raw symptom.
-Debugger will collect full context, trace root cause, and determine layer.
+Do not investigate. Do not theorize. Raw symptom only.
 
 ---
 
-## Step 2 — Wait for Debugger's layer report
+## Step 2 — Wait for layer report
 
 | Layer | Meaning |
 |-------|---------|
-| `SPEC` | The requirement was wrong or ambiguous |
-| `PLAN` | The wave design was wrong |
-| `Test` | The test is wrong or incomplete |
-| `Code` | The implementation is wrong |
-| `Legacy` | Bug originates outside current feature scope |
+| `SPEC` | Requirement wrong or ambiguous |
+| `PLAN` | Wave design wrong |
+| `Test` | Test wrong or incomplete |
+| `Code` | Implementation wrong |
+| `Legacy` | Bug outside current feature scope |
 
 ---
 
 ## Step 3 — Route based on layer
 
-| Debugger Layer | Route to | Action |
-|----------------|----------|--------|
-| `SPEC` | Architect | Revise SPEC → cascade to PLAN → Tests → Code |
-| `PLAN` | Architect | Revise PLAN → re-run affected waves |
-| `Test` | Tester | Fix or add tests → re-run RED phase |
-| `Code` | Implementor | Fix implementation → Tester confirms GREEN |
-| `Legacy` | Architect | Trigger Interrupt Protocol (pause current task) |
+| Layer | Invoke | Action |
+|-------|--------|--------|
+| `SPEC` | `architect` | Revise SPEC → cascade to PLAN → Tests → Code |
+| `PLAN` | `architect` | Revise PLAN → re-run affected waves |
+| `Test` | `tester` | Fix tests → re-run RED |
+| `Code` | `implementor` | Fix code → tester confirms GREEN |
+| `Legacy` | `architect` | Interrupt Protocol — pause current task |
 
-**Always fix at the root layer. Never patch downstream without fixing upstream first.**
+**Fix at root layer first. Never patch downstream without fixing upstream.**
 
 ---
 
-## Layer dispute rule
-If agents disagree on layer after 2 routing attempts → escalate to user.
-Do not loop further.
+## Dispute rule
+Layer disagreement after 2 attempts → escalate to user. Do not loop.

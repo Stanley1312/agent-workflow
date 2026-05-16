@@ -1,6 +1,6 @@
 ---
 name: wiki_agent
-description: "Build and maintain the persistent LLM wiki (second brain) for this project. Triggers on post-task ingestion, /workflow init (first run — creates llm-wiki/ structure), and on-demand queries against accumulated knowledge. Compatible with architect and debugger skills."
+description: "Build and maintain the project's persistent wiki (llm-wiki/). Invoke during: project initialization (create structure), post-task ingestion (compile completed work into wiki), or on-demand knowledge queries before writing SPEC or investigating bugs."
 ---
 
 # Skill: Wiki Agent

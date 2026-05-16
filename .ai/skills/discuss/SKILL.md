@@ -1,6 +1,6 @@
 ---
 name: discuss
-description: Deep discussion with structured probing. Invoke when user wants to explore an idea, evaluate a technical decision, or when any input feels vague or under-defined.
+description: "Deep discussion with structured probing before committing to any decision. Trigger on: new feature ideas, architectural decisions, vague requirements ('make it fast', 'good UX'), anything that needs trade-off analysis before proceeding."
 ---
 
 # Skill: /discuss
@@ -68,10 +68,3 @@ If something sounds vague or hand-wavy, say so:
 - ❌ Moving forward before synthesis is confirmed
 - ❌ Treating the first answer as final on complex topics
 
----
-
-## Usage
-/discuss I want to add real-time notifications
-/discuss should we use PostgreSQL or MongoDB
-/discuss the current auth flow feels too complex
-Can be used standalone at any time — no active workflow required.
