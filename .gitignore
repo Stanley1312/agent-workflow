@@ -16,3 +16,4 @@ llm-wiki/
 .env
 .env.local
 .env*.local
+.ai/skills/workflow-workspace/
