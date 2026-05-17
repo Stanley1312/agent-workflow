@@ -34,15 +34,17 @@ status: IN_PROGRESS
 <!-- Implementor fills status after completing each wave -->
 <!-- Never use generic names like "Wave 1" — use domain names -->
 
+<!-- Repeat this block for each wave defined in PLAN.md -->
 ### Wave: [Name]
 - [ ] ⬜ [test description]
 - [ ] ⬜ [test description]
 **Status:** ⬜ Pending
 
-### Wave: [Name]
-- [ ] ⬜ [test description]
-- [ ] ⬜ [test description]
-**Status:** ⬜ Pending
+#### Summary (fill on GREEN)
+- **Built:** <!-- what was implemented -->
+- **Decisions:** <!-- non-obvious choices made and why -->
+- **Errors hit:** <!-- bugs encountered and how resolved -->
+- **Note filed:** `raw/notes/wave-[name]-[feature].md` ⬜
 
 ---
 

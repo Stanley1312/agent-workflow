@@ -64,7 +64,12 @@ pytest src/ --tb=short    # Python
 npm test                   # Node
 go test ./...              # Go
 
-- All pass → report: "Wave [name] GREEN — [N] tests passing. Ready for next wave."
+- All pass → report using this format:
+  ```
+  Wave [name] GREEN — [N] tests passing.
+  Errors hit: [bugs encountered during GREEN run, if any — or "none"]
+  Ready for next wave.
+  ```
 - Any failures → report exact test name + error output to Implementor for fix. Do NOT fix failures yourself.
 
 ## Re-run Protocol (called by Verifier)

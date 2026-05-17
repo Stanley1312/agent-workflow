@@ -23,7 +23,7 @@ Wait for Strategist to confirm all three files are written before continuing.
 
 **Invoke the `architect` subagent** with this task:
 > "Initialize the project wiki.
-> Read `.ai/skills/wiki_agent/SKILL.md` and run the Init workflow to create `llm-wiki/`.
+> Read `.ai/skills/wiki/SKILL.md` and run the Init workflow to create `llm-wiki/`.
 > Report when complete."
 
 Wait for Architect to confirm wiki is initialized before continuing.

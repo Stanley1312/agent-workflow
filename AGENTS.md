@@ -40,10 +40,9 @@ For complete workflow documentation: @.claude/full_workflow.md
 | Skill | File |
 |-------|------|
 | Workflow | `.ai/skills/workflow/SKILL.md` |
-| Discuss | `.ai/skills/discuss.md` |
-| Explore | `.ai/skills/explore.md` |
-| Debug | `.ai/skills/debug.md` |
-| Wiki Agent | `.ai/skills/wiki_agent.md` |
+| Discuss | `.ai/skills/discuss/SKILL.md` |
+| Investigate | `.ai/skills/investigate/SKILL.md` |
+| Wiki | `.ai/skills/wiki/SKILL.md` |
 | GitNexus (auto-installed) | `.claude/skills/gitnexus/` |
 | Playwright (auto-installed) | `.claude/skills/dev/` |
 

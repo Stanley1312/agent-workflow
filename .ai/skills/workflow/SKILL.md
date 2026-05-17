@@ -57,7 +57,10 @@ Read PLAN.md → repeat for each wave:
 **4c. GREEN** — Invoke `tester`:
 > "Run tests for [wave]. Report: 'Wave [name] GREEN' or report failures."
 
-- GREEN → update STATE.md → next wave
+- GREEN →
+  1. Update STATE.md wave Summary (Built / Decisions / Errors hit)
+  2. Write `raw/notes/wave-[name]-[feature].md` with same content (expanded)
+  3. Compact context → proceed to next wave
 - FAIL → invoke `.ai/skills/bug_routing/SKILL.md`
 
 ---

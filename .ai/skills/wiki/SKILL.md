@@ -1,9 +1,9 @@
 ---
-name: wiki_agent
+name: wiki
 description: "Build and maintain the project's persistent wiki (llm-wiki/). Invoke during: project initialization (create structure), post-task ingestion (compile completed work into wiki), or on-demand knowledge queries before writing SPEC or investigating bugs."
 ---
 
-# Skill: Wiki Agent
+# Skill: Wiki
 
 ## Core Principle
 The wiki is a **persistent, compounding artifact**. Knowledge is compiled once and kept current, not re-derived on every query. Cross-references are already resolved. Contradictions are flagged. Synthesis reflects everything accumulated so far.
@@ -14,7 +14,7 @@ llm-wiki/
 ├── raw/                  # Immutable source documents — never edit, only add
 │   ├── sources/          # External documentation (API docs, articles, references)
 │   ├── designs/          # Visual assets, system diagrams, UI images
-│   ├── notes/            # Quick notes and brain dumps
+│   ├── notes/            # Quick notes, brain dumps, and wave-by-wave learnings
 │   └── history/          # Completed specs and plans (archived by workflow)
 └── wiki/                 # LLM-generated markdown files — maintained by this skill
     ├── index.md          # Master catalog of all wiki pages
@@ -28,26 +28,29 @@ llm-wiki/
 ## Workflows
 
 ### Init (run once during `/workflow init`)
+Read `.ai/setup/llm_coding_wiki.md` to understand the wiki pattern and conventions.
 Create the full `llm-wiki/` directory structure above.
 Then create seed files:
 - `wiki/index.md` — empty catalog, ready for first ingest
 - `wiki/log.md` — empty log, ready for first entry
 Do not create placeholder content. Leave pages empty until real knowledge exists.
 
-### Ingest (run after every completed workflow task)
-Called by Architect agent during post-task ingestion:
-1. Read archived SPEC, PLAN, STATE from `raw/history/YYYY-MM-DD-[feature]/`
-2. Discuss key takeaways — what was built, what decisions were made, what went wrong
-3. Write or update pages in appropriate wiki category:
-   - Structural changes → `wiki/architecture/`
+### Ingest (triggered whenever new sources are in raw/)
+Drop any file into `raw/` and run ingest — the agent reads the content and decides where it belongs:
+1. Read all new sources from `raw/` — including:
+   - `raw/history/YYYY-MM-DD-[feature]/` (SPEC, PLAN, STATE from completed tasks)
+   - `raw/notes/` (wave learnings, brain dumps, quick notes)
+   - `raw/sources/` (external docs, API references)
+2. For each source, synthesize key takeaways and write or update appropriate wiki pages:
+   - System structure changes → `wiki/architecture/`
    - Non-obvious decisions → `wiki/decisions/YYYY-MM-DD-[slug].md`
    - Bugs and lessons → `wiki/pitfalls/[slug].md`
    - Domain concepts surfaced → `wiki/concepts/`
-4. Update `wiki/index.md` with new entries
-5. Update cross-references on related existing pages using `[[wikilinks]]`
-6. Append entry to `wiki/log.md`:
+3. Update `wiki/index.md` with new entries
+4. Update cross-references on related existing pages using `[[wikilinks]]`
+5. Append entry to `wiki/log.md`:
    ```
-   ## [YYYY-MM-DD] ingest | [feature name]
+   ## [YYYY-MM-DD] ingest | [source name]
    ```
 
 ### Query (on-demand — called by Architect or Debugger)
@@ -55,6 +58,7 @@ Called by Architect agent during post-task ingestion:
 2. Drill into relevant pages
 3. Synthesize answer with citations to source pages
 4. If the answer is valuable and reusable, file it back into the wiki as a new page
+5. Append to `wiki/log.md`: `## [YYYY-MM-DD] query | [topic]`
 
 ### Lint (periodic health check — called by Architect)
 Scan the wiki for:
@@ -66,6 +70,7 @@ Scan the wiki for:
 - Data gaps that could be filled from existing raw/ sources
 
 Report findings and suggest fixes. Do not auto-fix without Architect approval.
+Append to `wiki/log.md`: `## [YYYY-MM-DD] lint | [summary of findings]`
 
 ## Page Conventions
 
@@ -96,26 +101,20 @@ tags: [architecture | decision | pitfall | concept]
   ```
 - Parseable: `grep "^## \[" log.md | tail -N`
 
-## Responsibilities Split
-
-| Agent (this skill) | Human / Workflow |
-|--------------------|-----------------|
-| Process all archived specs into wiki | Curate raw/ sources |
-| Create and maintain all wiki pages | Direct analysis priorities |
-| Keep cross-references consistent | Ask good questions |
-| Update index and log on every change | Decide what matters |
-| Flag contradictions and suggest connections | Approve lint fixes |
-| All bookkeeping | Think about what it all means |
-
 ## Integration with Workflow
 
-This skill is invoked at two points in the workflow:
+This skill is invoked at three points:
 
 **Point 1 — `/workflow init`**
-Architect runs the Init workflow above to create `llm-wiki/` structure.
+Architect reads `.ai/setup/llm_coding_wiki.md` then runs the Init workflow to create `llm-wiki/` structure.
 
-**Point 2 — Post-task ingestion (Step 5 of every feature cycle)**
-Architect runs the Ingest workflow above after archiving `active/current/` to `raw/history/`.
+**Point 2 — After each wave GREEN**
+Implementor/Tester writes wave summary to `raw/notes/wave-[name]-[feature].md`.
+Full ingest runs at task completion (Point 3).
+
+**Point 3 — Post-task ingestion (Step 5 of every feature cycle)**
+Architect runs the Ingest workflow after archiving `active/current/` to `raw/history/`.
+All sources in `raw/` (history + notes + sources) are ingested into the wiki.
 Then runs `npx gitnexus analyze` and `npx gitnexus wiki` to keep the code graph in sync.
 
 **On-demand**

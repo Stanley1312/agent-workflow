@@ -101,4 +101,9 @@ Status: 🔄 In Progress
 ## Handoff
 When all wave code is written AND refactor is complete:
 - Update STATE.md: wave status = `✅ Code complete — [timestamp]`
-- Report: "Wave [name] code complete. Ready for Tester GREEN confirmation."
+- Report using this format:
+  ```
+  Wave [name] code complete. Ready for Tester GREEN confirmation.
+  Built: [brief summary of what was implemented]
+  Decisions: [any non-obvious technical choices made and why]
+  ```

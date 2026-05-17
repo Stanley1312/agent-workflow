@@ -42,7 +42,7 @@ For complete workflow documentation: @.claude/full_workflow.md
 | Workflow | `.ai/skills/workflow/SKILL.md` |
 | Discuss | `.ai/skills/discuss/SKILL.md` |
 | Investigate | `.ai/skills/investigate/SKILL.md` |
-| Wiki Agent | `.ai/skills/wiki_agent/SKILL.md` |
+| Wiki | `.ai/skills/wiki/SKILL.md` |
 | GitNexus (auto-installed) | `.claude/skills/gitnexus/` |
 | Playwright (auto-installed) | `.claude/skills/dev/` |
 
