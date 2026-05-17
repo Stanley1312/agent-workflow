@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Panel - Camera Dashboard{% endblock %}
+
+{% block content %}
+<h1>Camera Management</h1>
+
+<h2>Camera List</h2>
+{% if cameras %}
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>IP</th>
+                <th>RTSP URL</th>
+                <th>Username</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for camera in cameras %}
+                <tr>
+                    <td>{{ camera.name }}</td>
+                    <td>{{ camera.ip }}</td>
+                    <td>{{ camera.rtsp_url }}</td>
+                    <td>{{ camera.username }}</td>
+                    <td>
+                        <form method="POST" action="{{ url_for('admin.admin_edit', camera_id=camera.id) }}" style="display:inline;">
+                            <input type="hidden" name="name" value="{{ camera.name }}">
+                            <input type="hidden" name="ip" value="{{ camera.ip }}">
+                            <input type="hidden" name="rtsp_url" value="{{ camera.rtsp_url }}">
+                            <input type="hidden" name="username" value="{{ camera.username }}">
+                            <input type="hidden" name="password" value="{{ camera.password }}">
+                            <button type="submit">Edit</button>
+                        </form>
+                        <form method="POST" action="{{ url_for('admin.admin_delete', camera_id=camera.id) }}" style="display:inline;">
+                            <button type="submit" onclick="return confirm('Delete this camera?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No cameras configured yet.</p>
+{% endif %}
+
+<h2>Add Camera</h2>
+<form method="POST" action="{{ url_for('admin.admin_add') }}">
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+    </div>
+    <div>
+        <label for="ip">IP Address:</label>
+        <input type="text" id="ip" name="ip" required>
+    </div>
+    <div>
+        <label for="rtsp_url">RTSP URL:</label>
+        <input type="text" id="rtsp_url" name="rtsp_url" required placeholder="rtsp://...">
+    </div>
+    <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+    </div>
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+    </div>
+    <button type="submit">Add Camera</button>
+</form>
+{% endblock %}

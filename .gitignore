@@ -18,5 +18,7 @@ llm-wiki/
 .env*.local
 .ai/skills/workflow-workspace/
 
-# Test project (local only — used to test workflow)
-camera-dashboard/
+# Test project — tracked on this branch, exclude runtime artifacts
+camera-dashboard/cameras.db
+camera-dashboard/__pycache__/
+camera-dashboard/**/__pycache__/

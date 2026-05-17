@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}{{ camera.name }} - Camera Dashboard{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/single.css') }}">
+
+<div class="single-camera-container">
+    <h1>{{ camera.name }}</h1>
+    <img src="/stream/{{ camera.id }}" alt="{{ camera.name }}" class="single-camera-stream" />
+    <a href="/" class="back-button">Back</a>
+</div>
+
+<script>
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        window.location.href = '/';
+    }
+});
+</script>
+{% endblock %}

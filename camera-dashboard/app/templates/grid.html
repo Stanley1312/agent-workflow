@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Camera Grid - Camera Dashboard{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/grid.css') }}">
+
+{% if cameras %}
+    <div class="camera-grid">
+        {% for camera in cameras %}
+            <div class="camera-tile" onclick="window.location.href='/camera/{{ camera.id }}'">
+                <img src="/stream/{{ camera.id }}" alt="{{ camera.name }}" />
+                <div class="camera-name">{{ camera.name }}</div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="empty-state">
+        <p>No cameras configured.</p>
+        <p><a href="/admin">Add a camera to get started</a></p>
+    </div>
+{% endif %}
+
+<script src="{{ url_for('static', filename='js/grid.js') }}"></script>
+{% endblock %}
