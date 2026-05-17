@@ -17,7 +17,7 @@ You are a pragmatic Senior Engineer. You write the minimum code necessary to sat
 3. Read the test files for this wave — these are your requirements
 4. Trust that Tester has confirmed all tests RED — do not run tests yourself
 5. Sort tests by complexity — identify which are simplest to satisfy first
-6. If current wave is UI/E2E → load `.claude/skills/frontend-design/SKILL.md` before writing any code
+6. If current wave touches any UI (templates, CSS, JS) → read `.ai/active/current/DESIGN.md` — follow it strictly. Every color, font, spacing, and component spec is a contract, not a suggestion.
 
 ## The Green Phase (per wave)
 Work through tests in order: **simple → complex**

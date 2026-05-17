@@ -39,8 +39,9 @@ Invoke `architect`:
 > "Design phase for: [feature].
 > 1. Run Pre-SPEC Ritual
 > 2. Write SPEC.md — get user approval (hard gate)
-> 3. Create STATE.md (checkpoint: SPEC APPROVED)
-> 4. Write PLAN.md
+> 3. Create DESIGN.md if UI in scope (invoke ui-spec skill)
+> 4. Create STATE.md (checkpoint: SPEC APPROVED)
+> 5. Write PLAN.md
 > Report when done."
 
 ---

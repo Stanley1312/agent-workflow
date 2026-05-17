@@ -20,9 +20,9 @@ Before writing any SPEC, execute in order:
    - Search: "[framework] [version] breaking changes migration"
    - Fetch official docs pages for anything version-specific
    - Do not rely on training data alone for stack decisions
-7. If SPEC has any UI scope (`*.html`, `*.jsx`, `*.tsx`, `*.vue`, `*.svelte`, `templates/`, `components/`):
-   - Load `.claude/skills/frontend-design/SKILL.md` — mandatory before writing any UI-related SPEC sections
-   - Follow its design tokens, component patterns, and conventions throughout
+7. If the feature involves any UI (user mentioned: dashboard, web app, HTML, CSS, browser, templates, visual interface, or any screen):
+   - Load `.claude/skills/frontend-design/SKILL.md` — internalize principles before writing UX Flows
+   - Require UX Flows section in SPEC — no exceptions
 
 ## SPEC Authoring Rules
 
@@ -73,6 +73,11 @@ After writing SPEC, present it to the user and ask exactly this:
 ## PLAN + STATE Authoring Rules
 
 After SPEC is approved, in this exact order:
+
+### 0. Create DESIGN.md (if UI in scope)
+If SPEC contains UX Flows or any UI scope → invoke `.ai/skills/ui-spec/SKILL.md` before writing PLAN.
+Output: `.ai/active/current/DESIGN.md`
+Skip for backend-only features.
 
 ### 1. Create STATE.md first
 Create `.ai/active/current/STATE.md` from `.ai/templates/STATE.template.md`.
