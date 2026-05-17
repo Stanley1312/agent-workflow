@@ -14,6 +14,11 @@
 
 ### P1 — Should Have
 
+- [ ] **UI Redesign — Professional Dark Dashboard** — P1
+  - What: Restyle the Camera Dashboard frontend into a professional dark-theme, industrial / control-room aesthetic using Google Fonts, CSS custom properties, card tiles with a scanline overlay, per-camera status indicators, a bottom nav with a blinking REC indicator, a responsive grid, and smooth transitions/animations.
+  - Why: The current UI is plain HTML with minimal CSS and looks like an unfinished prototype; a polished, always-on dashboard should communicate camera health at a glance and feel pleasant to leave open.
+  - Done when: Grid view, single camera view, admin panel, and bottom nav are all restyled under the new design system; design tokens live in CSS custom properties; Google Fonts are loaded; each tile shows a status indicator and scanline overlay; REC blinker is visible in the bottom nav; layout is responsive across desktop and mobile breakpoints; transitions are smooth; MJPEG stream latency is unchanged versus baseline.
+
 ### P2 — Nice to Have
 
 <!-- Item format — Strategist fills this:
