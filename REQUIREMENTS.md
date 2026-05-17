@@ -46,6 +46,11 @@
   - Why: Establish single source of truth for all agents and skills
   - Result: .ai/ structure, all agents, skills, templates in place
 
+- [x] **Camera Dashboard** — Completed 2026-05-17
+  - What: Responsive grid view to monitor up to 10 IP cameras (Imou/Yosee) on home network
+  - Why: Need centralized view of all cameras without switching between apps
+  - Result: 103 tests passing; MJPEG proxy via OpenCV, RTSP auto-retry, Playwright E2E. Verifier WARN: single.js inlined in template.
+
 ---
 
 ## Promotion Rule
