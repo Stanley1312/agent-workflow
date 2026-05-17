@@ -1,5 +1,5 @@
 # REQUIREMENTS — Feature Backlog
-> Managed by: Strategist (adds items) + Architect (promotes to active)
+> Managed by: Strategist (adds items) + Architect (promotes to active, marks complete)
 
 ## Priority Levels
 - **P0** — Must have, blocks release
@@ -11,23 +11,45 @@
 ## Backlog
 
 ### P0 — Must Have
-- [ ] <!-- Feature: title | Context: why needed -->
 
 ### P1 — Should Have
-- [ ] <!-- Feature: title | Context: why needed -->
 
 ### P2 — Nice to Have
-- [ ] <!-- Feature: title | Context: why needed -->
+
+<!-- Item format — Strategist fills this:
+- [ ] **[Feature title]** — P[0/1/2]
+  - What: [one sentence]
+  - Why: [one sentence — the real problem it solves]
+  - Done when: [concrete, measurable condition]
+-->
+
+---
+
+## In Progress
+
+<!-- Architect moves item here when SPEC is approved + PLAN written -->
+<!-- Change [ ] → [~] to mark in progress -->
 
 ---
 
 ## Completed
-- [x] Workflow initialization
+
+<!-- Architect updates entry here after ingestion:
+- [x] **[Feature title]** — Completed YYYY-MM-DD
+  - What: [one sentence]
+  - Why: [one sentence]
+  - Result: [what was built, test count, any deviations]
+-->
+
+- [x] **Workflow initialization** — Completed 2026-05-16
+  - What: Setup AI development workflow infrastructure
+  - Why: Establish single source of truth for all agents and skills
+  - Result: .ai/ structure, all agents, skills, templates in place
 
 ---
 
 ## Promotion Rule
-When Architect picks a feature to build:
-1. Move item to ROADMAP.md milestone
-2. Create SPEC from `.ai/templates/SPEC.template.md` → `.ai/active/current/SPEC.md`
-3. After SPEC approved → create PLAN → `.ai/active/current/PLAN.md`
+When Architect picks a feature:
+1. Move item from **Backlog** → **In Progress** (change `[ ]` → `[~]`)
+2. Create SPEC.md → get user approval → create PLAN.md
+3. After ingestion: move to **Completed**, replace `Done when` with `Result`

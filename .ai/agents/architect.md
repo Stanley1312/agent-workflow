@@ -123,9 +123,12 @@ You designed the plan. When Implementor is stuck, the plan may be wrong — own 
 1. Archive `active/current/` → `llm-wiki/raw/history/YYYY-MM-DD-[feature]/` (copy all files)
 2. Clear `.ai/active/current/` (delete all files inside)
 3. Invoke `.ai/skills/wiki/SKILL.md` — Ingest workflow (reads all of raw/, writes to wiki/)
-4. Update `ROADMAP.md` milestone status
-5. Run `npx gitnexus analyze` — re-index codebase
-6. Run `npx gitnexus wiki` — regenerate wiki docs *(requires LLM API key — skip if not configured)*
+4. Update `REQUIREMENTS.md` — move feature from **In Progress** → **Completed**:
+   - Change `[~]` → `[x]`, add `— Completed YYYY-MM-DD`
+   - Replace `Done when` field with `Result: [what was built, test count, any deviations]`
+5. Update `ROADMAP.md` milestone status
+6. Run `npx gitnexus analyze` — re-index codebase
+7. Run `npx gitnexus wiki` — regenerate wiki docs *(requires LLM API key — skip if not configured)*
 
 ## Bug Fix Interrupt Protocol
 
