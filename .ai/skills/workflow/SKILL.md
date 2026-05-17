@@ -61,7 +61,8 @@ Read PLAN.md → repeat for each wave:
 - GREEN →
   1. Update STATE.md wave Summary (Built / Decisions / Errors hit)
   2. Write `raw/notes/wave-[name]-[feature].md` with same content (expanded)
-  3. Compact context → proceed to next wave
+  3. If this is the **last wave** in PLAN.md: write checkpoint `All waves GREEN — [date]` to STATE.md
+  4. Compact context → proceed to next wave (or Step 5 if last wave)
 - FAIL → invoke `.ai/skills/bug_routing/SKILL.md`
 
 ---
@@ -90,4 +91,4 @@ Done → tell user: "Feature complete. Say 'continue' to start next feature."
 | PLAN WRITTEN | Step 4 — first wave |
 | Wave [N] code complete | Step 4c — GREEN for Wave [N] |
 | Wave [N] GREEN | Step 4a — next wave |
-| All waves complete | Step 5 |
+| All waves GREEN | Step 5 |

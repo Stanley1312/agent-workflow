@@ -2,7 +2,6 @@
 feature: <!-- from SPEC -->
 started: YYYY-MM-DD HH:MM
 last_updated: YYYY-MM-DD HH:MM
-current_wave: <!-- wave name, not number -->
 status: IN_PROGRESS
 ---
 
@@ -23,6 +22,7 @@ status: IN_PROGRESS
 - [ ] ✅ STATE.md + PLAN.md created — <!-- date -->
 - [ ] ✅ [Wave name] complete — <!-- date -->
 - [ ] ✅ [Wave name] complete — <!-- date -->
+- [ ] ✅ All waves GREEN — <!-- date -->
 - [ ] ✅ Verification passed — <!-- date -->
 - [ ] ✅ Ingestion complete — <!-- date -->
 
