@@ -23,7 +23,6 @@
 
 ## Completed
 - [x] Workflow initialization
-- [x] Camera Dashboard — 2026-05-17 — Monitor up to 10 IP cameras (Imou/Yosee) in a responsive grid view on home network. See `llm-wiki/camera-dashboard.md`.
 
 ---
 
