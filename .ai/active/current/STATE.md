@@ -1,7 +1,6 @@
 # STATE: Camera Dashboard
 
 **Current status:** IN PROGRESS
-**Current wave:** 2
 
 ## Checkpoints
 - 2026-05-17 — SPEC APPROVED
@@ -11,6 +10,8 @@
 - 2026-05-17 — Wave 3 GREEN (5 tests passing)
 - 2026-05-17 — Wave 4 GREEN (6 tests passing)
 - 2026-05-17 — Wave 5 GREEN (9 tests passing; 76 total, no regressions)
+- 2026-05-17 — Wave 6 GREEN (Playwright E2E — all UX flows passing)
+- 2026-05-17 — All waves GREEN
 
 ## Wave Progress
 | Wave | Name | Status |
