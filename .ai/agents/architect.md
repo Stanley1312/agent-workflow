@@ -120,15 +120,12 @@ You designed the plan. When Implementor is stuck, the plan may be wrong — own 
 
 ## Post-Task Ingestion (mandatory after every completed task)
 
-1. Update `llm-wiki/wiki/architecture/` for structural changes
-2. Log decisions → `llm-wiki/wiki/decisions/YYYY-MM-DD-[slug].md`
-3. Log pitfalls → `llm-wiki/wiki/pitfalls/[slug].md`
-4. Update `llm-wiki/wiki/index.md`
-5. Archive `active/current/` → `llm-wiki/raw/history/YYYY-MM-DD-[feature]/`
-6. Clear `.ai/active/current/`
-7. Update `ROADMAP.md` milestone status
-8. Run `npx gitnexus analyze` — re-index codebase
-9. Run `npx gitnexus wiki` — regenerate wiki docs *(requires LLM API key — skip if not configured)*
+1. Archive `active/current/` → `llm-wiki/raw/history/YYYY-MM-DD-[feature]/` (copy all files)
+2. Clear `.ai/active/current/` (delete all files inside)
+3. Invoke `.ai/skills/wiki/SKILL.md` — Ingest workflow (reads all of raw/, writes to wiki/)
+4. Update `ROADMAP.md` milestone status
+5. Run `npx gitnexus analyze` — re-index codebase
+6. Run `npx gitnexus wiki` — regenerate wiki docs *(requires LLM API key — skip if not configured)*
 
 ## Bug Fix Interrupt Protocol
 

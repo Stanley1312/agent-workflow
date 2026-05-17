@@ -59,10 +59,11 @@ Read PLAN.md → repeat for each wave:
 > "Run tests for [wave]. Report: 'Wave [name] GREEN' or report failures."
 
 - GREEN →
-  1. Update STATE.md wave Summary (Built / Decisions / Errors hit)
-  2. Write `raw/notes/wave-[name]-[feature].md` with same content (expanded)
-  3. If this is the **last wave** in PLAN.md: write checkpoint `All waves GREEN — [date]` to STATE.md
-  4. Compact context → proceed to next wave (or Step 5 if last wave)
+  1. Write checkpoint to STATE.md Checkpoints section: `[date] — Wave [name] GREEN ([N] tests passing)`
+  2. Update STATE.md wave Summary block (Built / Decisions / Errors hit)
+  3. Write `raw/notes/wave-[name]-[feature].md` with same content (expanded)
+  4. If this is the **last wave** in PLAN.md: write checkpoint `All waves GREEN — [date]` to STATE.md
+  5. Compact context → proceed to next wave (or Step 5 if last wave)
 - FAIL → invoke `.ai/skills/bug_routing/SKILL.md`
 
 ---
