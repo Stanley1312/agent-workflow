@@ -19,14 +19,14 @@ Wait for Strategist to confirm all three files are written before continuing.
 
 ---
 
-## Step 2 — Wiki initialization
+## Step 2 — Tooling initialization
 
 **Invoke the `architect` subagent** with this task:
-> "Initialize the project wiki.
-> Read `.ai/skills/wiki/SKILL.md` and run the Init workflow to create `llm-wiki/`.
+> "Initialize all project tooling.
+> Read `.ai/skills/setup/SKILL.md` and run the Init workflow (wiki + gitnexus + playwright).
 > Report when complete."
 
-Wait for Architect to confirm wiki is initialized before continuing.
+Wait for Architect to confirm all tools are initialized before continuing.
 
 ---
 
