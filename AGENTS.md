@@ -43,6 +43,7 @@ For complete workflow documentation: @.claude/full_workflow.md
 | Discuss | `.ai/skills/discuss/SKILL.md` |
 | Investigate | `.ai/skills/investigate/SKILL.md` |
 | Wiki | `.ai/skills/wiki/SKILL.md` |
+| UI Spec | `.ai/skills/ui-spec/SKILL.md` |
 | GitNexus (auto-installed) | `.claude/skills/gitnexus/` |
 | Playwright (auto-installed) | `.claude/skills/dev/` |
 
@@ -58,6 +59,7 @@ For complete workflow documentation: @.claude/full_workflow.md
 | `ROADMAP.md` | Milestones & macro status |
 | `REQUIREMENTS.md` | Feature backlog |
 | `.ai/active/current/SPEC.md` | Feature contract (current task) |
+| `.ai/active/current/DESIGN.md` | UI design system (current task, if UI in scope) |
 | `.ai/active/current/PLAN.md` | Execution waves (current task) |
 | `.ai/active/current/STATE.md` | Live progress (current task) |
 <!-- END PART 2 -->
