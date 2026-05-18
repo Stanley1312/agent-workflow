@@ -16,7 +16,7 @@ You are the final quality gate. You do not write code or tests. You orchestrate 
 ### V1 — Full Test Suite
 Invoke `.ai/agents/tester.md` Re-run Protocol — Tester owns test execution.
 - 0 failures → PASS
-- Any failures → FAIL — invoke `.ai/skills/bug_routing/SKILL.md`, do not continue to V2
+- Any failures → FAIL — invoke `.ai/skills/bug-routing/SKILL.md`, do not continue to V2
 
 ### V2 — Linting & Types
 ```bash
@@ -24,7 +24,7 @@ npx eslint src/
 npx tsc --noEmit   # TypeScript only
 ```
 - 0 errors → PASS
-- Any errors → FAIL — invoke `.ai/skills/bug_routing/SKILL.md`, do not continue to V3
+- Any errors → FAIL — invoke `.ai/skills/bug-routing/SKILL.md`, do not continue to V3
 - Warnings with no errors → WARN — log in STATE.md, continue
 
 ### V3 — SPEC Coverage Check
@@ -46,7 +46,7 @@ Do not self-declare this step as "N/A" if any of the above exist.
 npx playwright test
 ```
 - All UX Flow tests pass → continue to Step 4b
-- Any failure → FAIL — invoke `.ai/skills/bug_routing/SKILL.md` immediately
+- Any failure → FAIL — invoke `.ai/skills/bug-routing/SKILL.md` immediately
 
 **Step 4b — Real browser verification:**
 Open browser and follow **each UX Flow defined in SPEC.md** step by step — use the SPEC as your script, do not freestyle.
@@ -94,10 +94,10 @@ Any step returns a failure. Document in STATE.md:
 **Assigned to:** [agent]
 ```
 
-Invoke `.ai/skills/bug_routing/SKILL.md` with:
+Invoke `.ai/skills/bug-routing/SKILL.md` with:
 - Which step failed (V1/V2/V3/V4/V5)
 - Exact error or symptom
 - Relevant file paths
 
-Follow the bug_routing protocol — do not route directly.
+Follow the bug-routing protocol — do not route directly.
 Do not proceed to ingestion. Wait for re-verification.

@@ -1,13 +1,30 @@
 ---
-name: bug_routing
+name: bug-routing
 description: "Mandatory protocol when encountering any bug, test failure, or unexpected behavior. Invoke immediately — before any investigation or fix attempt. Trigger on: test failures, runtime errors, output not matching expectation, V1-V5 verification failures."
 ---
 
 # Bug Routing Protocol
 
+## Trigger scenarios — invoke this skill when:
+- A test fails during wave loop (Step 4c FAIL)
+- Verifier reports FAIL (Step 5)
+- User reports a runtime bug or unexpected behavior outside the wave loop
+
+---
+
 ## ⛔ Hard Rule
 No agent may investigate or fix a bug on their own.
 Skipping this = patching the wrong layer = compounding the problem.
+
+---
+
+## Entry point
+
+**No diagnosis yet** (user just reported something broken):
+→ Invoke `investigate` skill first → wait for Debugger Layer report → continue to Step 2
+
+**Already have a Debugger Layer report:**
+→ Skip to Step 2 directly
 
 ---
 
@@ -44,6 +61,18 @@ Do not investigate. Do not theorize. Raw symptom only.
 | `Legacy` | `architect` | Interrupt Protocol — pause current task |
 
 **Fix at root layer first. Never patch downstream without fixing upstream.**
+
+---
+
+## Step 4 — After fix confirmed GREEN
+Write a bug report to `llm-wiki/raw/` with:
+- Bug: symptoms observed
+- Root cause: Debugger's diagnosis
+- Layer: where the fix was applied
+- Fix: what changed
+- Test: which test now covers this case
+
+Wiki Ingest will read `raw/` and route to the correct wiki section (e.g. `pitfalls/`).
 
 ---
 

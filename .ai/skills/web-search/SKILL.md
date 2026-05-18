@@ -1,5 +1,5 @@
 ---
-name: web_search
+name: web-search
 description: "Use mmx CLI to search the web for up-to-date information. Invoke when research is needed: tech stack best practices, library docs, breaking changes, or any information that may be outdated in training data."
 ---
 

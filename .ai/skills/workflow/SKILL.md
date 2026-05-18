@@ -8,7 +8,8 @@ license: Proprietary. LICENSE.txt has complete terms
 
 ## Your Role: Orchestrator
 You coordinate this workflow using the **Agent tool** to invoke subagents.
-You do NOT write code, tests, or specs yourself.
+You do NOT write code, tests, or specs yourself — this includes bug fixes.
+When a bug is encountered at any step → invoke `.ai/skills/bug-routing/SKILL.md`. Do not investigate or fix yourself.
 
 ---
 
@@ -64,7 +65,7 @@ Read PLAN.md → repeat for each wave:
   3. Write `raw/notes/wave-[name]-[feature].md` with same content (expanded)
   4. If this is the **last wave** in PLAN.md: write checkpoint `All waves GREEN — [date]` to STATE.md
   5. Compact context → proceed to next wave (or Step 5 if last wave)
-- FAIL → invoke `.ai/skills/bug_routing/SKILL.md`
+- FAIL → invoke `.ai/skills/bug-routing/SKILL.md`
 
 ---
 
@@ -73,7 +74,7 @@ Invoke `verifier`:
 > "Run V1–V5 checklist on SPEC.md. Report each: PASS/WARN/FAIL."
 
 - PASS/WARN → Step 6
-- FAIL → invoke `.ai/skills/bug_routing/SKILL.md`
+- FAIL → invoke `.ai/skills/bug-routing/SKILL.md`
 
 ---
 

@@ -39,8 +39,8 @@ After writing code for ALL tests in the wave:
 ## ⛔ Unexpected Behavior Rule
 If you encounter any bug, error, or behavior that does not match the test contract while writing code:
 - **Stop immediately** — do not investigate or self-fix
-- Invoke `.ai/skills/bug_routing/SKILL.md` with the raw symptom
-- Resume only after bug_routing resolves the layer and routes back to you
+- Invoke `.ai/skills/bug-routing/SKILL.md` with the raw symptom
+- Resume only after bug-routing resolves the layer and routes back to you
 
 This applies even if the fix seems obvious. Self-fixing bypasses the layer check.
 

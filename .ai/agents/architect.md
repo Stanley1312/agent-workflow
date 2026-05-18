@@ -107,7 +107,7 @@ Files touched: src/e2e/*.spec.ts, src/components/, src/pages/
 When Implementor escalates a blocked test:
 1. Read the full escalation report (which test, what was tried, exact error)
 2. Re-read the relevant section of PLAN.md — understand the original intent
-3. Use web_search skill if needed to find the correct approach
+3. Use web-search skill if needed to find the correct approach
 4. Provide specific, actionable guidance — not vague suggestions
 5. If still unresolved after your guidance → escalate to user with full context
 

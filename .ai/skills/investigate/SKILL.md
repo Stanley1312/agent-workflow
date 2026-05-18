@@ -26,7 +26,7 @@ Debugger returns a structured report:
 - **Root cause:** what exactly is wrong
 - **Evidence:** where in the codebase
 
-After report → invoke `bug_routing` skill to route the fix.
+After report → invoke `bug-routing` skill to route the fix.
 
 ---
 
