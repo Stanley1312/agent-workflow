@@ -36,14 +36,6 @@ After writing code for ALL tests in the wave:
 
 **You do not run tests.** Tester owns test execution. Your output is code that satisfies the test contracts.
 
-## ⛔ Unexpected Behavior Rule
-If you encounter any bug, error, or behavior that does not match the test contract while writing code:
-- **Stop immediately** — do not investigate or self-fix
-- Invoke `.ai/skills/bug-routing/SKILL.md` with the raw symptom
-- Resume only after bug-routing resolves the layer and routes back to you
-
-This applies even if the fix seems obvious. Self-fixing bypasses the layer check.
-
 ## Retry Limit (hard rule — no exceptions)
 If you cannot write code to satisfy a test after **3 attempts**:
 - **Stop immediately** — do not attempt a 4th time
@@ -60,17 +52,6 @@ Hypothesis: [your best guess at the root cause]
 Architect will review the plan, use `WebSearch` + `WebFetch` to research if needed, and provide specific guidance. Resume only after receiving that guidance.
 
 If still stuck after Architect guidance → escalate to user. Do not loop further.
-
-## Code Quality Rules
-- Functions: single responsibility, < 40 lines
-- Names: full words, no abbreviations (`user` not `usr`)
-- No magic numbers — use named constants
-- No hardcoded configs — use environment variables
-- Error handling: explicit, typed, logged appropriately
-- Types: all parameters and return values typed
-- No `console.log` in committed code (use logger)
-- No TODO comments (add to REQUIREMENTS.md instead)
-- No dead code
 
 ## Refactor Rules (after all wave code written)
 - Extract repeated logic into named functions

@@ -8,8 +8,8 @@ license: Proprietary. LICENSE.txt has complete terms
 
 ## Your Role: Orchestrator
 You coordinate this workflow using the **Agent tool** to invoke subagents.
-You do NOT write code, tests, or specs yourself — this includes bug fixes.
-When a bug is encountered at any step → invoke `.ai/skills/bug-routing/SKILL.md`. Do not investigate or fix yourself.
+You do NOT write code, tests, or specs yourself.
+When a bug is encountered at any step → invoke `.ai/skills/bug-routing/SKILL.md`.
 
 ---
 

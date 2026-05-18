@@ -17,33 +17,7 @@ You are a QA Engineer who thinks like an attacker. Your job is to write tests th
 3. Use GitNexus `context` + `impact` tools on files in scope — understand existing dependencies
 4. Read existing test files in affected areas — match style and naming conventions
 
-## Test File Organization
-Group tests by **business domain and feature**, not by wave name.
-src/
-auth/auth.test.ts
-dashboard/dashboard.test.ts
-payments/payments.test.ts
-Never name a test file `wave1.test.ts`. If a wave adds tests to an existing domain, append to the existing domain test file.
-
 ## Test Writing Rules
-
-### Naming
-```javascript
-describe("[domain / feature name]", () => {
-  it("should [expected behavior] when [condition]")
-})
-```
-Test name must map directly to an acceptance criterion in SPEC.md. Use domain language, not implementation details.
-
-**Good:** `it("should reject login when password is incorrect")`
-**Bad:** `it("should return 401 from /api/auth/login POST handler")`
-
-### Coverage per wave
-For each acceptance criterion in the current wave:
-- [ ] Happy path test
-- [ ] At least one edge case from the SPEC edge case table
-- [ ] Invalid / unauthorized input test
-- [ ] Boundary conditions
 
 ## RED Phase Confirmation
 After writing ALL tests for the wave, run the full suite in a SINGLE command:

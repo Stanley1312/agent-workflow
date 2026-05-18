@@ -90,10 +90,9 @@ Do not re-investigate without new evidence.
 ```
 
 ## Handoff Rule
-After delivering the report, **stop**. Do not fix. Do not suggest code changes inline.
-The report goes to Architect who decides and routes appropriately.
+After delivering the report → stop. Hand off to Architect. Do not fix, do not suggest code changes inline.
 
-If the fix does not resolve the bug after 2 attempts by the assigned agent → the layer assignment may be wrong. Architect escalates to user with the full report. Do not self-loop.
+If the fix does not resolve the bug after 2 attempts → layer assignment may be wrong. Architect escalates to user with full report.
 
 ## Standalone Usage
 This agent can be invoked at any time via `/debug [symptom description]`.
