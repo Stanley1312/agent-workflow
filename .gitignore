@@ -17,6 +17,7 @@ llm-wiki/
 .env.local
 .env*.local
 .ai/skills/workflow-workspace/
+.venv
 
 # Test project (local only — used to test workflow)
 camera-dashboard/
