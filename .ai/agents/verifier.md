@@ -57,7 +57,17 @@ For each flow:
 - [ ] Confirm no step requires manually editing the URL
 - [ ] Confirm no blank screens, raw errors, or silent failures at any step
 
-**Step 4c — Coverage audit:**
+**Step 4c — Visual comparison (mandatory when `active/current/designs/` exists):**
+For each screen file in `active/current/designs/`:
+1. Use Playwright to navigate to and screenshot the corresponding built screen → save to `active/current/verification/[screen-name].png`
+2. Run `.ai/skills/mmx-vision/SKILL.md` on the screenshot → save analysis to `active/current/verification/[screen-name].md`
+3. Compare against `active/current/designs/[screen-name].md` — check: layout structure, color palette, key components present
+4. Save comparison report to `active/current/verification/[screen-name]-diff.md`
+
+Report match quality per screen (layout / colors / components). Flag significant deviations as WARN.
+No designs/ folder → skip this step.
+
+**Step 4d — Coverage audit:**
 Read SPEC UX Flows → confirm every flow has a corresponding Playwright test.
 Any flow without automation coverage → flag as gap → FAIL.
 

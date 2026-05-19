@@ -21,11 +21,8 @@ Before writing any SPEC, execute in order:
    - Fetch official docs pages for anything version-specific
    - Do not rely on training data alone for stack decisions
 7. If the feature involves any UI (user mentioned: dashboard, web app, HTML, CSS, browser, templates, visual interface, or any screen):
-   - Load `.claude/skills/frontend-design/SKILL.md` — internalize principles before writing UX Flows
+   - Load `.ai/skills/design-spec/SKILL.md` — internalize design principles before writing UX Flows
    - Require UX Flows section in SPEC — no exceptions
-8. If image files (.png, .jpg, .webp) exist in the project alongside the UI task:
-   - Invoke `.ai/skills/mmx-vision/SKILL.md` for each image before writing SPEC
-   - Use the structured output (layout, colors, components, interactions) as the source of truth for SPEC UX Flows and DESIGN.md
 
 ## SPEC Authoring Rules
 
@@ -77,10 +74,15 @@ After writing SPEC, present it to the user and ask exactly this:
 
 After SPEC is approved, in this exact order:
 
-### 0. Create DESIGN.md (if UI in scope)
-If SPEC contains UX Flows or any UI scope → invoke `.ai/skills/ui-spec/SKILL.md` before writing PLAN.
-Output: `.ai/active/current/DESIGN.md`
-Skip for backend-only features.
+### 0. Create screen analyses + DESIGN.md (mandatory when SPEC contains UX Flows)
+
+**Screen analyses:**
+Search the project for image files that appear to be UI mockups, designs, or wireframes.
+Run `.ai/skills/mmx-vision/SKILL.md` on each found → save each output to `active/current/designs/[screen-name].md`
+
+**DESIGN.md:**
+Invoke `.ai/skills/design-spec/SKILL.md` — reads `active/current/designs/` if populated, otherwise researches independently.
+Output: `active/current/DESIGN.md`
 
 ### 1. Create STATE.md first
 Create `.ai/active/current/STATE.md` from `.ai/templates/STATE.template.md`.

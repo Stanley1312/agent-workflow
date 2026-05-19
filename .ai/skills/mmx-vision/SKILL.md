@@ -110,12 +110,16 @@ No need for exact match — same subject, tone, and aspect ratio is sufficient.
 ## Multiple images
 Analyze each screen separately, then add **Flow Map** connecting screens via interactive elements.
 
-## Handoff to Architect
-| Section | → Artifact |
-|---------|-----------|
-| Layout Map | DESIGN.md layout skeleton + SPEC UX Flows structure |
-| Color Palette | DESIGN.md design tokens (CSS custom properties) |
-| Typography | DESIGN.md type scale |
-| Components | SPEC in-scope list + DESIGN.md component specs |
-| Interactive Elements | SPEC UX Flows (each = one flow step) |
-| Images | Implementation placeholder or sourced via search |
+## Step 3 — Save screen analysis
+Save the structured output to `active/current/designs/[screen-name].md`.
+Use the image filename as the screen name (e.g. `home.png` → `designs/home.md`).
+Create the `designs/` folder if it does not exist.
+
+This file is read by:
+- `design-spec` skill → to produce DESIGN.md
+- Implementor → as reference when building UI waves
+- Verifier → as baseline for visual comparison after implementation
+
+## Multiple images
+Analyze each screen separately → one file per screen in `designs/`.
+After all screens analyzed, add a `designs/flow-map.md` connecting screens via interactive elements.
