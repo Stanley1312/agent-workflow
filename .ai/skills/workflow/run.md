@@ -75,7 +75,7 @@ Wait for Implementor to report code complete before continuing to 4c.
 > Run the tests for this wave. Confirm all pass. Report: 'Wave [name] GREEN' or report any failures."
 
 - **GREEN** → update STATE.md checkpoint → proceed to next wave (or Step 5 if last wave)
-- **FAIL** → invoke `.ai/skills/bug-routing/SKILL.md` immediately. Do not proceed.
+- **FAIL** → invoke `bug-routing` skill immediately. Do not proceed.
 
 ---
 
@@ -88,7 +88,7 @@ Wait for Implementor to report code complete before continuing to 4c.
 
 **Outcomes:**
 - ✅ PASS (or ⚠️ WARN — V2 warnings only) → proceed to Step 6
-- ❌ FAIL → invoke `.ai/skills/bug-routing/SKILL.md` immediately. Do not proceed.
+- ❌ FAIL → invoke `bug-routing` skill immediately. Do not proceed.
 
 ---
 

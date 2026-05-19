@@ -76,7 +76,7 @@ Read PLAN.md → repeat for each wave:
      - Write checkpoint `All waves GREEN — [date]` to STATE.md
      - Update STATE.md `status: COMPLETE`
      - Proceed to Step 5
-- FAIL → invoke `.ai/skills/bug-routing/SKILL.md`
+- FAIL → invoke `bug-routing` skill
 
 ---
 
@@ -85,7 +85,7 @@ Invoke `verifier`:
 > "Run V1–V5 checklist on SPEC.md. Report each: PASS/WARN/FAIL."
 
 - PASS/WARN → Step 6
-- FAIL → invoke `.ai/skills/bug-routing/SKILL.md`
+- FAIL → invoke `bug-routing` skill
 
 ---
 
@@ -94,7 +94,7 @@ Invoke `architect`:
 > "Run post-task ingestion:
 > 1. Archive `active/current/` → `llm-wiki/raw/history/YYYY-MM-DD-[feature]/`
 > 2. Clear `active/current/` (delete all files)
-> 3. Invoke `.ai/skills/wiki/SKILL.md`
+> 3. Invoke `wiki` skill
 > 4. Update `REQUIREMENTS.md` — mark feature `[x] Completed YYYY-MM-DD`, replace `Done when` with `Result: [what was built, test count]`
 > 5. Update `ROADMAP.md` — mark milestone ✅ Done if complete, update Current Sprint to next focus
 > 6. Run `npx gitnexus analyze`

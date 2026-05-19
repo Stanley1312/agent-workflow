@@ -1,7 +1,12 @@
 ---
 name: ui-spec
-description: "Generate a concrete DESIGN.md for a project's UI. Invoke during design phase when SPEC has UI scope (HTML, CSS, templates, browser). Output: .ai/active/current/DESIGN.md"
+description: "DEPRECATED — replaced by design-spec skill. Do not invoke."
+deprecated: true
+replaced_by: .ai/skills/design-spec/SKILL.md
 ---
+
+> ⚠️ **DEPRECATED** — This skill has been replaced by `.ai/skills/design-spec/SKILL.md`.
+> Do not invoke this skill. Use `design-spec` instead.
 
 # Skill: UI Spec
 

@@ -59,7 +59,7 @@ Triggered when `PLAN.md` designates current wave as "UI/E2E".
 ### Pre-E2E Ritual (mandatory)
 1. Read `SPEC.md` UX Flows section — these are your test scripts
 2. Confirm all previous waves are GREEN before writing any Playwright tests
-3. Confirm Playwright is installed — if not, invoke `.ai/skills/setup/SKILL.md`
+3. Confirm Playwright is installed — if not, invoke `setup` skill
 
 ### Writing Playwright Tests
 One test file per UX Flow defined in SPEC:

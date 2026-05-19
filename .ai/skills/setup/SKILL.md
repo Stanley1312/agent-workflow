@@ -24,7 +24,7 @@ Verify: `npx gitnexus --version` · `mmx --version` · `npx playwright --version
 *Invoked by Architect during `/workflow init`.*
 
 ### Step 1 — Wiki
-Invoke `.ai/skills/wiki/SKILL.md` Init workflow:
+Invoke `wiki` skill Init workflow:
 - Creates `llm-wiki/` directory structure (`wiki/`, `raw/`, subdirectories)
 - Creates seed files: `wiki/index.md`, `wiki/log.md`
 

@@ -21,7 +21,7 @@ Before writing any SPEC, execute in order:
    - Fetch official docs pages for anything version-specific
    - Do not rely on training data alone for stack decisions
 7. If the feature involves any UI (user mentioned: dashboard, web app, HTML, CSS, browser, templates, visual interface, or any screen):
-   - Load `.ai/skills/design-spec/SKILL.md` — internalize design principles before writing UX Flows
+   - Load `design-spec` skill — internalize design principles before writing UX Flows
    - Require UX Flows section in SPEC — no exceptions
 
 ## SPEC Authoring Rules
@@ -78,10 +78,10 @@ After SPEC is approved, in this exact order:
 
 **Screen analyses:**
 Search the project for image files that appear to be UI mockups, designs, or wireframes.
-Run `.ai/skills/mmx-vision/SKILL.md` on each found → save each output to `active/current/designs/[screen-name].md`
+Run `mmx-vision` skill on each found → save each output to `active/current/designs/[screen-name].md`
 
 **DESIGN.md:**
-Invoke `.ai/skills/design-spec/SKILL.md` — reads `active/current/designs/` if populated, otherwise researches independently.
+Invoke `design-spec` skill — reads `active/current/designs/` if populated, otherwise researches independently.
 Output: `active/current/DESIGN.md`
 
 ### 1. Create STATE.md first
@@ -127,7 +127,7 @@ You designed the plan. When Implementor is stuck, the plan may be wrong — own 
 
 1. Archive `active/current/` → `llm-wiki/raw/history/YYYY-MM-DD-[feature]/` (copy all files)
 2. Clear `.ai/active/current/` (delete all files inside)
-3. Invoke `.ai/skills/wiki/SKILL.md` — Ingest workflow (reads all of raw/, writes to wiki/)
+3. Invoke `wiki` skill — Ingest workflow (reads all of raw/, writes to wiki/)
 4. Update `REQUIREMENTS.md` — move feature from **In Progress** → **Completed**:
    - Change `[~]` → `[x]`, add `— Completed YYYY-MM-DD`
    - Replace `Done when` field with `Result: [what was built, test count, any deviations]`
@@ -142,4 +142,4 @@ When Debugger reports a legacy bug requiring fix:
 2. Move `active/current/` contents → `active/paused/`
 3. Create new SPEC/PLAN for bug fix in `active/current/`
 4. Run full 5-step workflow for bug fix
-5. After bug fix ingested → invoke `.ai/skills/workflow/SKILL.md` run protocol — it will detect `active/paused/` and restore automatically
+5. After bug fix ingested → invoke `workflow` skill run protocol — it will detect `active/paused/` and restore automatically
