@@ -23,6 +23,9 @@ Before writing any SPEC, execute in order:
 7. If the feature involves any UI (user mentioned: dashboard, web app, HTML, CSS, browser, templates, visual interface, or any screen):
    - Load `.claude/skills/frontend-design/SKILL.md` — internalize principles before writing UX Flows
    - Require UX Flows section in SPEC — no exceptions
+8. If image files (.png, .jpg, .webp) exist in the project alongside the UI task:
+   - Invoke `.ai/skills/mmx-vision/SKILL.md` for each image before writing SPEC
+   - Use the structured output (layout, colors, components, interactions) as the source of truth for SPEC UX Flows and DESIGN.md
 
 ## SPEC Authoring Rules
 
