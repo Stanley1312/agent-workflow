@@ -9,15 +9,23 @@ license: Proprietary. LICENSE.txt has complete terms
 ## Your Role: Orchestrator
 You coordinate this workflow using the **Agent tool** to invoke subagents.
 You do NOT write code, tests, or specs yourself.
-When a bug is encountered at any step → invoke `.ai/skills/bug-routing/SKILL.md`.
+**Every subagent invocation MUST begin with the Standard Preamble below.**
 
 ---
 
-## Step 0 — Always check state first
+## Standard Preamble — prepend to every subagent prompt
+> "Before starting, read all files in `.ai/rules/` and follow them."
+
+---
+
+## Step 0 — Check state
+
 Read `.ai/active/current/STATE.md`:
-- **In-progress** → skip to the correct step in Resume Table below
-- **PAUSED** → move `.ai/active/paused/` contents → `.ai/active/current/` → resume from checkpoint
-- **Not found** → proceed to Step 1
+- **IN_PROGRESS** → check Resume Table below, skip to correct step
+- **COMPLETE** → check Ingestion Checklist in STATE.md. If any item unchecked → run Step 6. If all checked → proceed to Step 1.
+- **Not found** → check `active/paused/`:
+  - Has content → move `active/paused/` contents → `active/current/` → read restored STATE.md → resume from checkpoint
+  - Empty → proceed to Step 1
 
 ---
 
@@ -60,11 +68,14 @@ Read PLAN.md → repeat for each wave:
 > "Run tests for [wave]. Report: 'Wave [name] GREEN' or report failures."
 
 - GREEN →
-  1. Write checkpoint to STATE.md Checkpoints section: `[date] — Wave [name] GREEN ([N] tests passing)`
+  1. Write checkpoint to STATE.md: `[date] — Wave [name] GREEN ([N] tests passing)`
   2. Update STATE.md wave Summary block (Built / Decisions / Errors hit)
   3. Write `raw/notes/wave-[name]-[feature].md` with same content (expanded)
-  4. If this is the **last wave** in PLAN.md: write checkpoint `All waves GREEN — [date]` to STATE.md
-  5. Compact context → proceed to next wave (or Step 5 if last wave)
+  4. **If more waves remain** → proceed to next wave (repeat Step 4a)
+  5. **If this is the last wave** →
+     - Write checkpoint `All waves GREEN — [date]` to STATE.md
+     - Update STATE.md `status: COMPLETE`
+     - Proceed to Step 5
 - FAIL → invoke `.ai/skills/bug-routing/SKILL.md`
 
 ---
@@ -80,7 +91,14 @@ Invoke `verifier`:
 
 ## Step 6 — Ingest
 Invoke `architect`:
-> "Run post-task ingestion: update llm-wiki/, archive active/current/, update ROADMAP.md, run npx gitnexus analyze."
+> "Run post-task ingestion:
+> 1. Archive `active/current/` → `llm-wiki/raw/history/YYYY-MM-DD-[feature]/`
+> 2. Clear `active/current/` (delete all files)
+> 3. Invoke `.ai/skills/wiki/SKILL.md`
+> 4. Update `REQUIREMENTS.md` — mark feature `[x] Completed YYYY-MM-DD`, replace `Done when` with `Result: [what was built, test count]`
+> 5. Update `ROADMAP.md` — mark milestone ✅ Done if complete, update Current Sprint to next focus
+> 6. Run `npx gitnexus analyze`
+> Confirm each step via STATE.md Ingestion Checklist."
 
 Done → tell user: "Feature complete. Say 'continue' to start next feature."
 
