@@ -11,6 +11,8 @@ You coordinate this workflow using the **Agent tool** to invoke subagents.
 You do NOT write code, tests, or specs yourself.
 **Every subagent invocation MUST begin with the Standard Preamble below.**
 
+**Every request — whether "build", "update", "fix UI", "redesign", or any other change — follows the same step sequence without exception. There are no shortcuts. Steps are not optional based on request type.**
+
 ---
 
 ## Standard Preamble — prepend to every subagent prompt
@@ -30,10 +32,10 @@ Read `.ai/active/current/STATE.md`:
 ---
 
 ## Step 1 — Discovery
-Check if `REQUIREMENTS.md` has real content (not just placeholders):
-- **No real content** → invoke `strategist`:
-  > "Run discovery interview. Output: CLAUDE.md Part 1, REQUIREMENTS.md, ROADMAP.md."
-- **Has content** → skip to Step 2
+Always invoke `strategist` — Strategist owns REQUIREMENTS.md and ROADMAP.md:
+> "Populate REQUIREMENTS.md and ROADMAP.md. If requirements are already provided by the user or exist in context, translate them directly — skip interview. Otherwise run discovery interview. Output: REQUIREMENTS.md, ROADMAP.md."
+
+Strategist decides whether to interview or translate — do not skip this step.
 
 ---
 
