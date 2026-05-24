@@ -99,6 +99,25 @@ Each wave must declare:
 - **Files touched**: explicit list of src paths
 - **Tasks**: test first, then implementation
 
+**For waves that build a UI screen:** read `active/current/designs/[screen-name].md` before writing tasks.
+Extract every section from the Layout Map and list them as explicit tasks — do not let Implementor guess the layout.
+Example: if Layout Map shows Hero → Signature Series → Newsletter → Footer, tasks must reflect each section individually.
+
+**Parallel execution:** Within each wave, identify tasks that are independent — they touch different files and do not depend on each other's output. Group them into parallel groups. The orchestrator will spawn one Implementor per group simultaneously, reducing wall-clock time significantly.
+
+Use this format in PLAN:
+```
+**Parallel Group 1:** (run simultaneously)
+- Implementor A: [task] — files: [...]
+- Implementor B: [task] — files: [...]
+
+**Sequential — depends on Group 1:**
+- Implementor: [task] — files: [...], requires output from Group 1
+```
+
+If all tasks in a wave are independent, put them all in one parallel group.
+If a task depends on another, it must be sequential after that task completes.
+
 Wave design principle: waves must be as isolated as possible so re-runs are scoped, not total.
 
 **UI/E2E wave rule:** If SPEC contains UX Flows → PLAN must include a UI/E2E wave as the final wave. No exceptions. This wave is always last — it depends on all previous waves being GREEN.

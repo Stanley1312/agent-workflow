@@ -61,8 +61,13 @@ Read PLAN.md → repeat for each wave:
 **4a. RED** — Invoke `tester`:
 > "Write tests for [wave]. Confirm all failing. Report: '[N] tests written, all failing'."
 
-**4b. Implement** — Invoke `implementor`:
-> "Write code to satisfy tests for [wave]. Do not run tests. Report: 'Wave [name] code complete'."
+**4b. Implement** — Read PLAN wave tasks:
+- **Parallel Groups present** → spawn one `implementor` per group in a single Agent call (simultaneously). Each gets its group's tasks + file scope only.
+- **Sequential only** → invoke a single `implementor` as normal.
+
+Prompt per implementor: `"Implement [group tasks] for [wave]. Files in scope: [file list]. Do not run tests. Report: 'Wave [name] code complete'."`
+
+Wait for ALL implementors to complete before proceeding to 4c.
 
 **4c. GREEN** — Invoke `tester`:
 > "Run tests for [wave]. Report 'Wave [name] GREEN' or structured failure list only: test name + one-line symptom per failing test."
