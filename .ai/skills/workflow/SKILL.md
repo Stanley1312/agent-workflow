@@ -16,7 +16,8 @@ You do NOT write code, tests, or specs yourself.
 ---
 
 ## Standard Preamble — prepend to every subagent prompt
-> "Before starting, read all files in `.ai/rules/` and follow them."
+> "Before starting, read all files in `.ai/rules/` and follow them.
+> Work only within the current project directory. Never read or write files outside it — do not navigate to parent directories or sibling projects."
 
 ---
 
