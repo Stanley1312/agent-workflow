@@ -65,7 +65,7 @@ Read PLAN.md → repeat for each wave:
 > "Write code to satisfy tests for [wave]. Do not run tests. Report: 'Wave [name] code complete'."
 
 **4c. GREEN** — Invoke `tester`:
-> "Run tests for [wave]. Report: 'Wave [name] GREEN' or report failures."
+> "Run tests for [wave]. Report 'Wave [name] GREEN' or structured failure list only: test name + one-line symptom per failing test."
 
 - GREEN →
   1. Write checkpoint to STATE.md: `[date] — Wave [name] GREEN ([N] tests passing)`
@@ -76,7 +76,13 @@ Read PLAN.md → repeat for each wave:
      - Write checkpoint `All waves GREEN — [date]` to STATE.md
      - Update STATE.md `status: COMPLETE`
      - Proceed to Step 5
-- FAIL → invoke `bug-routing` skill
+- FAIL →
+  1. Do not analyze. Do not form hypotheses. Do not touch any file.
+  2. Invoke `debugger` with structured failure list (test names + symptoms only)
+  3. Debugger traces chain bottom-up: Code → Test → Plan → Spec — reports first discrepancy
+  4. Route fix to identified layer: Code → `implementor` / Test → `tester` / Plan → `architect`
+  5. After fix: re-invoke `tester` GREEN (back to Step 4c)
+  6. **Same tests still fail after 2 full cycles** → stop. Report to user: which tests, what was tried.
 
 ---
 

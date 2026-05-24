@@ -44,7 +44,13 @@ go test ./...              # Go
   Errors hit: [bugs encountered during GREEN run, if any — or "none"]
   Ready for next wave.
   ```
-- Any failures → report exact test name + error output to Implementor for fix. Do NOT fix failures yourself.
+- Any failures → report structured list only — no stack traces, no raw error output, no hypotheses:
+  ```
+  FAIL — Wave [name]
+  - [test name]: [one-line symptom, e.g. "element not found", "wrong count", "navigation failed"]
+  ([N] failing, [M] passing)
+  ```
+  Do NOT fix failures yourself.
 
 ## Re-run Protocol (called by Verifier)
 When Verifier requests a full suite re-run:
@@ -102,4 +108,10 @@ After Implementor completes UI wave:
 npx playwright test --reporter=list
 ```
 - All pass → report: "UI/E2E GREEN — [N] tests passing. Ready for Verifier."
-- Any failures → report exact test name + screenshot/trace to Implementor. Do NOT fix yourself.
+- Any failures → report structured list only — no stack traces, no raw error output, no hypotheses:
+  ```
+  FAIL — Wave [name]
+  - [test name]: [one-line symptom]
+  ([N] failing, [M] passing)
+  ```
+  Do NOT fix yourself.

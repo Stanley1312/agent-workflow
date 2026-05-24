@@ -5,76 +5,59 @@ description: "Mandatory protocol when encountering any bug, test failure, or une
 
 # Bug Routing Protocol
 
-## Trigger scenarios — invoke this skill when:
-- A test fails during wave loop (Step 4c FAIL)
-- Verifier reports FAIL (Step 5)
-- User reports a runtime bug or unexpected behavior outside the wave loop
-
----
-
 ## ⛔ Hard Rule
 No agent may investigate or fix a bug on their own.
 Skipping this = patching the wrong layer = compounding the problem.
 
 ---
 
-## Entry point
+## Step 1 — Invoke debugger with structured symptom only
 
-**No diagnosis yet** (user just reported something broken):
-→ Invoke `investigate` skill first → wait for Debugger Layer report → continue to Step 2
-
-**Already have a Debugger Layer report:**
-→ Skip to Step 2 directly
+Pass the structured failure list from Tester — test names and one-line symptoms only.
+Do not add analysis, hypotheses, or context about what was recently changed.
 
 ---
 
-## Step 1 — Report raw symptom
-Invoke the `debugger` subagent via Agent tool with only what you observed:
-- "Test [name] failed with [error]"
-- "Output was [X] but expected [Y]"
-- "Error at [file/line]"
+## Step 2 — Debugger traces the chain bottom-up
 
-Do not investigate. Do not theorize. Raw symptom only.
+Debugger reads each layer and finds where the first discrepancy is:
 
----
+```
+Code: what does the implementation actually do?
+  ↑ compare
+Test: what is the test asserting?
+  ↑ compare
+Plan: what did the plan specify for this task?
+  ↑ compare
+Spec: what does the AC require?
+```
 
-## Step 2 — Wait for layer report
-
-| Layer | Meaning |
-|-------|---------|
-| `SPEC` | Requirement wrong or ambiguous |
-| `PLAN` | Wave design wrong |
-| `Test` | Test wrong or incomplete |
-| `Code` | Implementation wrong |
-| `Legacy` | Bug outside current feature scope |
+Debugger reports: **which layer has the discrepancy** and what it is.
+SPEC and REQUIREMENTS are source of truth — if trace reaches them, the layers below misread them.
 
 ---
 
-## Step 3 — Route based on layer
+## Step 3 — Route to identified layer
 
-| Layer | Invoke | Action |
-|-------|--------|--------|
-| `SPEC` | `architect` | Revise SPEC → cascade to PLAN → Tests → Code |
-| `PLAN` | `architect` | Revise PLAN → re-run affected waves |
-| `Test` | `tester` | Fix tests → re-run RED |
-| `Code` | `implementor` | Fix code → tester confirms GREEN |
-| `Legacy` | `architect` | Interrupt Protocol — pause current task |
+| Layer | Agent | Action |
+|-------|-------|--------|
+| Code | `implementor` | Fix code to satisfy the test |
+| Test | `tester` | Fix test to correctly reflect the spec |
+| Plan | `architect` | Revise plan → re-run affected waves |
+| Spec ambiguous | — | Stop. Escalate to user. |
 
-**Fix at root layer first. Never patch downstream without fixing upstream.**
-
----
-
-## Step 4 — After fix confirmed GREEN
-Write a bug report to `llm-wiki/raw/` with:
-- Bug: symptoms observed
-- Root cause: Debugger's diagnosis
-- Layer: where the fix was applied
-- Fix: what changed
-- Test: which test now covers this case
-
-Wiki Ingest will read `raw/` and route to the correct wiki section (e.g. `pitfalls/`).
+Fix at root layer only. Do not patch downstream without fixing upstream first.
 
 ---
 
-## Dispute rule
-Layer disagreement after 2 attempts → escalate to user. Do not loop.
+## Step 4 — Re-enter Step 4c
+
+After fix: orchestrator re-invokes `tester` GREEN. Do not run tests directly.
+
+---
+
+## Loop limit
+
+If the same tests are still failing after **2 full cycles** → stop immediately.
+Report to user: which tests, what layer was identified each cycle, what was changed.
+Do not loop further.
