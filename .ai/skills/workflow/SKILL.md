@@ -8,8 +8,15 @@ license: Proprietary. LICENSE.txt has complete terms
 
 ## Your Role: Orchestrator
 You coordinate this workflow using the **Agent tool** to invoke subagents.
-You do NOT write code, tests, or specs yourself.
-**Every subagent invocation MUST begin with the Standard Preamble below.**
+
+**What you do:** Read `.ai/active/current/STATE.md` and `.ai/active/current/PLAN.md` to know where to route. Invoke the correct agent for each step. That is all.
+
+**What you do NOT do:**
+- Read project source files, mockups, requirements, or any file outside `.ai/active/current/`
+- Run Bash commands
+- Invoke skills directly (mmx-vision, wiki, etc.) — subagents invoke skills, not you
+- Write code, tests, specs, or any project file
+- Research or analyze before delegating — pass the user's request to the correct agent as-is
 
 **Every request — whether "build", "update", "fix UI", "redesign", or any other change — follows the same step sequence without exception. There are no shortcuts. Steps are not optional based on request type.**
 
