@@ -26,7 +26,11 @@ Debugger returns a structured report:
 - **Root cause:** what exactly is wrong
 - **Evidence:** where in the codebase
 
-After report → invoke `bug-routing` skill to route the fix.
+## After Debugger reports — mandatory next step
+
+Invoke `bug-routing` skill immediately with the structured report.
+Do not stop after the report. Do not summarize to the user first.
+Bug-routing owns the fix decision — investigation is not complete until fix is routed.
 
 ---
 

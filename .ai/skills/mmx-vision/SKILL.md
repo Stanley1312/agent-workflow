@@ -28,11 +28,13 @@ Analyze this UI design in detail. Please provide:
 5. IMAGES: For each image/photo in the design, describe what it shows, its position, aspect ratio, and dominant colors.
 
 6. INTERACTIVE ELEMENTS: All clickable elements with their visual style and label.
+
+7. COPY / TEXT CONTENT: Extract every piece of visible text verbatim — headlines, body copy, section titles, descriptions, button labels, nav items, footer columns. Preserve exact wording as shown in the design.
 ```
 
 ## Step 1 — Run for each image
 ```bash
-mmx vision describe path/to/screen.png --prompt "Analyze this UI design in detail. Please provide: 1. LAYOUT MAP: Draw a text-based spatial map showing the page structure — sections, columns, rows, and what sits where. 2. COMPONENTS: For each component: name, position, dimensions, background color, text color, border. 3. COLOR PALETTE: Every color with role and approximate hex. 4. TYPOGRAPHY: Font style, size (px if possible), weight, color for each text level. 5. IMAGES: For each image/photo: what it shows, position, aspect ratio, dominant colors. 6. INTERACTIVE ELEMENTS: All clickable elements with visual style and label."
+mmx vision describe path/to/screen.png --prompt "Analyze this UI design in detail. Please provide: 1. LAYOUT MAP: Draw a text-based spatial map showing the page structure — sections, columns, rows, and what sits where. 2. COMPONENTS: For each component: name, position, dimensions, background color, text color, border. 3. COLOR PALETTE: Every color with role and approximate hex. 4. TYPOGRAPHY: Font style, size (px if possible), weight, color for each text level. 5. IMAGES: For each image/photo: what it shows, position, aspect ratio, dominant colors. 6. INTERACTIVE ELEMENTS: All clickable elements with visual style and label. 7. COPY / TEXT CONTENT: Extract every piece of visible text verbatim — headlines, body copy, section titles, descriptions, button labels, nav items, footer columns. Preserve exact wording."
 ```
 
 ## Step 2 — Structure for Architect
@@ -95,6 +97,17 @@ Organize VLM output into:
 | Nav link | "Collections" | → collections page |
 | Primary button | "Add to Cart" | → cart update |
 | Thumbnail | [image n] | → swap main image |
+
+### Content / Copy
+| Section | Element | Exact Text |
+|---------|---------|------------|
+| Hero | Headline | "..." |
+| Hero | Subheading | "..." |
+| Hero | Body copy | "..." |
+| Section X | Title | "..." |
+| Section X | Description | "..." |
+| Footer col 1 | Heading | "..." |
+| ... | ... | ... |
 
 ---
 
