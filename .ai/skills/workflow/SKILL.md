@@ -22,6 +22,9 @@ You do NOT write code, tests, or specs yourself.
 
 ## Step 0 — Check state
 
+First, check if project tooling is initialized:
+- `llm-wiki/` does not exist → invoke `setup` skill before anything else, then continue
+
 Read `.ai/active/current/STATE.md`:
 - **IN_PROGRESS** → check Resume Table below, skip to correct step
 - **COMPLETE** → check Ingestion Checklist in STATE.md. If any item unchecked → run Step 6. If all checked → proceed to Step 1.
