@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0D0D0D;
+  --foreground: #FFFFFF;
+  --font-playfair: 'Playfair Display', serif;
+  --font-montserrat: 'Montserrat', sans-serif;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-serif: var(--font-playfair);
+  --font-sans: var(--font-montserrat);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-montserrat);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-playfair);
+}

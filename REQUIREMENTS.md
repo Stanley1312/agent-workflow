@@ -41,6 +41,11 @@
   - Result: [what was built, test count, any deviations]
 -->
 
+- [x] **Shopping Cart UI** — Completed 2026-05-24
+  - What: Two-page luxury watch e-commerce UI (Home + Product Detail)
+  - Why: Provide essential browsing and product viewing experience
+  - Result: Shopping cart UI with 2 pages (Home + Product Detail), 10 passing tests
+
 - [x] **Workflow initialization** — Completed 2026-05-16
   - What: Setup AI development workflow infrastructure
   - Why: Establish single source of truth for all agents and skills

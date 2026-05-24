@@ -10,9 +10,9 @@
 | # | Milestone | Status | Notes |
 |---|-----------|--------|-------|
 | 1 | Project Setup | ✅ Done | Workflow initialized |
-| 2 | | ⬜ Pending | |
+| 2 | Shopping Cart UI | ✅ Done | Completed 2026-05-24 |
 | 3 | | ⬜ Pending | |
 
 ## Current Sprint
-**Focus:** <!-- What is being built now -->
+**Focus:** Bug fixes for Shopping Cart UI (V1/V2 verification failures)
 **Blocker:** None
