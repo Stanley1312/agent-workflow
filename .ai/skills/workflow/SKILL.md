@@ -24,7 +24,7 @@ You coordinate this workflow using the **Agent tool** to invoke subagents.
 
 ## Standard Preamble — prepend to every subagent prompt
 > "Before starting, read all files in `.ai/rules/` and follow them.
-> Work only within the current project directory. Never read or write files outside it — do not navigate to parent directories or sibling projects."
+> The project root is the directory containing the `.ai/` folder. Never read or write files outside this root."
 
 ---
 
