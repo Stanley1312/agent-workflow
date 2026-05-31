@@ -47,8 +47,9 @@ Invoke `tester`:
 1. Write checkpoint to STATE.md: `[date] — Wave [name] GREEN ([N] tests passing)`
 2. Update STATE.md wave Summary block (Built / Decisions / Errors hit)
 3. Write `llm-wiki/raw/notes/wave-[name]-[feature].md` with same content
-4. More waves remain → next wave (back to 4a)
-5. Last wave →
+4. Run `npx gitnexus analyze` — re-index codebase after code changes
+5. More waves remain → next wave (back to 4a)
+6. Last wave →
    - Write `All waves GREEN — [date]` checkpoint to STATE.md
    - Set STATE.md `status: COMPLETE`
    - Read `verify.md`
