@@ -113,3 +113,31 @@ The workflow appears to let `ROADMAP.md` drift away from both the actual complet
 - Separate milestone-progress updates from final ingestion so completed work can update roadmap state earlier.
 - Require Strategist/Architect to preserve the existing roadmap format unless the user explicitly asks for restructuring.
 - Limit normal roadmap edits to status/focus/blocker fields instead of allowing broad regeneration.
+
+---
+
+## Agent Feedback
+
+### Feedback 1: Post-Debugger handoff needs to be a hard boundary
+After Debugger identifies the broken layer, the orchestrator should be forced into delegation-only mode. Right now the workflow describes the handoff, but does not enforce it strongly enough.
+
+### Feedback 2: Verification should be scope-aware
+Backend-only features should not enter UI/Playwright verification paths. Verification gates should be selected from SPEC/PLAN scope instead of being treated as universally applicable.
+
+### Feedback 3: Dependency/bootstrap checks should happen before Wave 1 RED
+Missing tools like Vitest, ESLint, or TypeScript should be caught by a preflight gate. Without that, environment/setup failures get mixed with feature failures.
+
+### Feedback 4: Verification-quality gates should be planned from the start
+Lint, typecheck, and runtime startup checks should be part of the original PLAN, not discovered late in final verification.
+
+### Feedback 5: Artifact paths need one canonical scheme
+The workflow should clearly separate transient task notes, ingested wiki history, and active task state. Ambiguous paths lead to unexpected folders like repo-root `raw/`.
+
+### Feedback 6: Roadmap updates should not depend entirely on ingestion
+Milestone status should be able to reflect completed work before the final ingestion step. Otherwise roadmap state can lag behind actual progress.
+
+### Feedback 7: Structured docs need a minimal-diff rule
+Files like `ROADMAP.md`, `REQUIREMENTS.md`, and related workflow documents should be updated by preserving existing format unless the user explicitly asks for a rewrite.
+
+### Feedback 8: The workflow relies too much on soft instructions
+Several critical constraints are described as rules, but not enforced as state transitions. The workflow would be more reliable if these were converted into explicit gates and branch conditions.
