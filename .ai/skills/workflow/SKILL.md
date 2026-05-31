@@ -88,7 +88,7 @@ Wait for ALL implementors to complete before proceeding to 4c.
 - GREEN →
   1. Write checkpoint to STATE.md: `[date] — Wave [name] GREEN ([N] tests passing)`
   2. Update STATE.md wave Summary block (Built / Decisions / Errors hit)
-  3. Write `raw/notes/wave-[name]-[feature].md` with same content (expanded)
+  3. Write `llm-wiki/raw/notes/wave-[name]-[feature].md` with same content (expanded)
   4. **If more waves remain** → proceed to next wave (repeat Step 4a)
   5. **If this is the last wave** →
      - Write checkpoint `All waves GREEN — [date]` to STATE.md
