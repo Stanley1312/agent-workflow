@@ -94,3 +94,22 @@ The workflow appears to mix two different storage locations for note artifacts, 
 - Define one canonical location for transient wave notes.
 - Define one canonical location for ingested/history artifacts.
 - Explicitly forbid creating ad-hoc top-level artifact folders outside the approved path scheme.
+
+## Issue 8: ROADMAP milestone status and format are not preserved reliably
+
+The workflow appears to let `ROADMAP.md` drift away from both the actual completed work and the document’s existing format.
+
+**Why this mattered:**
+- Only Milestone 1 is marked `Done` even though later milestone work was substantially completed.
+- `ROADMAP.md` was also reshaped from its prior format instead of being updated surgically.
+- That makes the roadmap less trustworthy as a progress tracker.
+
+**What this indicates:**
+- The workflow ties roadmap updates too tightly to the final ingestion/closure step, so if ingestion stalls or becomes mismatched, milestone status can lag behind reality.
+- The workflow does not enforce format preservation when Strategist or Architect update `ROADMAP.md`.
+- There is no explicit rule saying roadmap updates should be minimal-diff edits to existing milestone structure unless the user asked for a rewrite.
+
+**How to watch for it next time:**
+- Separate milestone-progress updates from final ingestion so completed work can update roadmap state earlier.
+- Require Strategist/Architect to preserve the existing roadmap format unless the user explicitly asks for restructuring.
+- Limit normal roadmap edits to status/focus/blocker fields instead of allowing broad regeneration.
