@@ -25,8 +25,7 @@ Prepend to every subagent prompt:
 | Step | What | Read |
 |------|------|------|
 | 0 | State check | `state.md` |
-| 1–2 | Discovery + feature selection | `discovery.md` |
-| 3 | Design (SPEC + PLAN) | invoke `architect` |
-| 4 | Wave loop (RED → Implement → GREEN) | `wave.md` |
-| 5 | Verification | `verify.md` |
-| 6 | Ingestion | invoke `ingest` skill |
+| 1–2 | Discovery + SPEC + PLAN | `discovery.md` |
+| 3 | Wave loop (RED → Implement → GREEN) | `wave.md` |
+| 4 | Verification | `verify.md` |
+| 5 | Ingestion | invoke `ingest` skill |

@@ -1,6 +1,6 @@
-# Steps 1–2 — Discovery & Feature Selection
+# Steps 1–2 — Discovery & SPEC
 
-## Step 1 — Discovery
+## Step 1 — Discovery + SPEC
 Invoke `strategist`:
 > "Run the discovery interview for the next feature.
 > Only skip if the user explicitly says 'skip interview' or 'no questions'.
@@ -25,17 +25,19 @@ Invoke `strategist`:
 > - Any third-party integrations?
 > - Any hard constraints (performance, budget, compliance)?
 >
-> **Before finishing:** Synthesize and present back to user:
-> 'Here is what I understand: [key facts, stack, constraints]
->  Is this correct? Anything missing?'
+> **Before writing SPEC:** Synthesize and confirm with user:
+> 'Here is what I understand: [key facts, stack, constraints]. Is this correct?'
 > Do not proceed until user confirms.
 >
+> Then write SPEC and get user approval.
+> Report: 'SPEC approved' when done."
+
+Wait for Strategist to report SPEC approved before Step 2.
+
+## Step 2 — PLAN
+Invoke `architect`:
+> "Read the approved SPEC at .ai/active/current/SPEC.md.
+> Run Pre-PLAN Ritual then write PLAN.md.
 > Report when done."
 
-## Step 2 — Feature Selection
-Invoke `architect`:
-> "Present the highest-priority unstarted features to the user.
-> Confirm selection.
-> Report back: feature name + key requirements."
-
-Wait for Architect to confirm selected feature before Step 3.
+Wait for Architect to confirm PLAN written before Step 3 (wave loop).
