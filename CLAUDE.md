@@ -67,7 +67,7 @@ For complete workflow documentation: @.claude/full_workflow.md
 <!-- gitnexus:start -->
 # GitNexus — Code Intelligence
 
-This project is indexed by GitNexus as **agent-workflow** (160 symbols, 169 relationships, 0 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
+This project is indexed by GitNexus as **agent-workflow** (440 symbols, 677 relationships, 21 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
 
 > If any GitNexus tool warns the index is stale, run `npx gitnexus analyze` in terminal first.
 

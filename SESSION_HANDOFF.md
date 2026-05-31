@@ -43,7 +43,7 @@ Always fix at the root layer and cascade down. Never patch code without updating
 - Handoff prompts must only pass context, never restate agent behavior
 
 ### Bug Routing — hard rule
-No agent may investigate or fix a bug on their own. All bugs go through `.ai/skills/bug_routing/SKILL.md` first — always.
+No agent may investigate or fix a bug on their own. All bugs go through `.ai/skills/bug-routing/SKILL.md` first — always.
 
 ---
 
@@ -69,7 +69,7 @@ project-root/
 │       ├── explore/SKILL.md
 │       ├── workflow/SKILL.md
 │       ├── web_search/SKILL.md
-│       ├── bug_routing/SKILL.md     ← NEW this session
+│       ├── bug-routing/SKILL.md     ← NEW this session
 │       ├── frontend-design/SKILL.md ← Added by user, needs wrapper created
 │       ├── gitnexus/                ← Auto-installed
 │       └── dev/                     ← Auto-installed: playwright
@@ -93,7 +93,7 @@ project-root/
 │   │   ├── wiki_agent/SKILL.md
 │   │   ├── web_search/SKILL.md
 │   │   ├── setup/SKILL.md
-│   │   └── bug_routing/SKILL.md    ← NEW this session
+│   │   └── bug-routing/SKILL.md    ← NEW this session
 │   ├── active/
 │   │   ├── current/                ← Running task (SPEC, PLAN, STATE)
 │   │   └── paused/                 ← Paused task during legacy bug fix
@@ -202,11 +202,11 @@ Defined in SPEC by Architect. Used by Tester as Playwright script. Used by Verif
 
 ## Bug Routing — New Skill (created this session)
 
-### `.ai/skills/bug_routing/SKILL.md`
+### `.ai/skills/bug-routing/SKILL.md`
 ```
 Any agent encounters bug/unexpected behavior/test failure
 → STOP — do not investigate or self-fix
-→ Invoke .ai/skills/bug_routing/SKILL.md
+→ Invoke .ai/skills/bug-routing/SKILL.md
 → Report raw symptom to Debugger ("test X failed with error Y")
 → Wait for Debugger's layer report (SPEC / PLAN / Test / Code / Legacy)
 → Route based on layer:
@@ -258,11 +258,11 @@ Debugger reports Layer = Legacy
 ### Session 2 (this session)
 | File | Change |
 |------|--------|
-| `.ai/skills/bug_routing/SKILL.md` | **NEW** — bug routing protocol skill |
-| `.claude/skills/bug_routing/SKILL.md` | **NEW** — wrapper pointing to .ai/ |
-| `.ai/agents/verifier.md` | V4 upgraded (3 steps: Playwright + real browser + coverage audit), FAIL routing → bug_routing skill, V1/V2 FAIL → bug_routing, description updated |
+| `.ai/skills/bug-routing/SKILL.md` | **NEW** — bug routing protocol skill |
+| `.claude/skills/bug-routing/SKILL.md` | **NEW** — wrapper pointing to .ai/ |
+| `.ai/agents/verifier.md` | V4 upgraded (3 steps: Playwright + real browser + coverage audit), FAIL routing → bug-routing skill, V1/V2 FAIL → bug-routing, description updated |
 | `.ai/agents/tester.md` | Added UI/E2E Wave section (Playwright writing + RED/GREEN for E2E), description updated |
-| `.ai/agents/implementor.md` | Added Unexpected Behavior Rule (→ bug_routing), added frontend-design load for UI/E2E wave, description updated |
+| `.ai/agents/implementor.md` | Added Unexpected Behavior Rule (→ bug-routing), added frontend-design load for UI/E2E wave, description updated |
 | `.ai/agents/architect.md` | Added step 7 in Pre-SPEC Ritual (load frontend-design if UI scope), added UX Flows format + requirement, added UI/E2E wave rule in PLAN authoring, fixed Interrupt Protocol to use `/workflow run` not `/workflow resume`, description updated |
 | `.ai/templates/SPEC.template.md` | Added UX Flows section between Edge Cases and Acceptance Criteria |
 
@@ -283,7 +283,7 @@ But `run.md` Step 1 still has the old branch:
 ```
 And remove `/workflow resume` section from `SKILL.md`.
 
-### 2. `workflow/SKILL.md` — FAIL routing still routes directly (not via bug_routing)
+### 2. `workflow/SKILL.md` — FAIL routing still routes directly (not via bug-routing)
 In the Step 5 section of `run.md`/`SKILL.md`:
 ```
 - V1/V3 → Tester or Implementor
@@ -291,7 +291,7 @@ In the Step 5 section of `run.md`/`SKILL.md`:
 - V4 → Implementor
 - V5 → Architect reviews SPEC → Implementor fixes code
 ```
-Should be replaced with: "invoke `.ai/skills/bug_routing/SKILL.md`"
+Should be replaced with: "invoke `.ai/skills/bug-routing/SKILL.md`"
 
 ### 3. Group 3 — All skills need optimization via skill-creator
 Scope: content + triggering for all `.ai/skills/` + `.claude/skills/` + `.claude/agents/`
@@ -327,7 +327,7 @@ User reported RAM overflow during pytest runs. Likely fixed (Implementor was run
 | Implementor has no Bash tool | Enforces "no test running" at tool level, not just rule level |
 | Tester owns all test execution | RED and GREEN both owned by Tester. Verifier calls Tester for re-run, not self-run |
 | UI/E2E wave is always last | Playwright needs full app running — can't write E2E until all domain waves done |
-| bug_routing as separate skill | Cross-cutting concern — belongs to no single agent. Good description = any agent auto-triggers |
+| bug-routing as separate skill | Cross-cutting concern — belongs to no single agent. Good description = any agent auto-triggers |
 | Verifier V4 = automation + real browser | Automation catches regressions; real browser catches what automation misses (UX feel, visual) |
 | SPEC UX Flows = Playwright script | Format designed so Tester can translate step-by-step directly into Playwright assertions |
 | Debugger collects context, not invoking agent | Agent only reports raw symptom — avoids wrong analysis from agents without full context |

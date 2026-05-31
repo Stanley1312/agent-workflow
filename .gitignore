@@ -21,3 +21,8 @@ llm-wiki/
 
 # Test project (local only — used to test workflow)
 camera-dashboard/
+
+
+# jS sourc
+/dist
+/requirements

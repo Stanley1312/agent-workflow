@@ -1,0 +1,30 @@
+{
+  "name": "vision-mcp-server-ollama",
+  "version": "0.1.0",
+  "description": "Local MCP server for analyzing images with Ollama llama3.2-vision.",
+  "type": "module",
+  "private": true,
+  "bin": {
+    "vision-mcp-server-ollama": "dist/src/server.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "npx --yes --package eslint@^9.30.0 --package typescript-eslint@^8.35.0 eslint src/",
+    "start": "node dist/src/server.js",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "eslint": "^9.30.0",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.35.0",
+    "vitest": "^2.1.8"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}
