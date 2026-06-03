@@ -5,6 +5,13 @@ Read `.ai/active/current/SPEC.md` and check scope:
 - UI in scope → full V1–V5
 - Backend-only (no UI, no Playwright mentioned in SPEC) → skip V4, run V1–V3 + V5 only
 
+## Before full V1–V5 (if UI in scope)
+Invoke `devops`:
+> "Verify app server is running for Playwright.
+> Report: 'Server ready' or what failed."
+
+Wait for DevOps to confirm before invoking Verifier.
+
 ## Invoke verifier
 > "Run verification checklist.
 > SPEC: .ai/active/current/SPEC.md

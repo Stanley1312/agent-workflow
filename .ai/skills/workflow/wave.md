@@ -2,6 +2,15 @@
 
 Read `PLAN.md` for the wave list.
 
+## UI/E2E wave — server setup
+If the current wave is the UI/E2E wave (last wave, contains Playwright):
+Before 4a, invoke `devops`:
+> "Set up app server for E2E testing.
+> Read playwright config if present.
+> Report: 'Server ready' or what failed."
+
+Wait for DevOps to confirm before 4a.
+
 ## Parallel waves
 Before starting: check PLAN.md for wave dependencies.
 - Waves with no shared dependencies → spawn all in one Agent call simultaneously

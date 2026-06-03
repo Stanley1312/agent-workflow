@@ -40,4 +40,12 @@ Invoke `architect`:
 > Run Pre-PLAN Ritual then write PLAN.md.
 > Report when done."
 
-Wait for Architect to confirm PLAN written before Step 3 (wave loop).
+Wait for Architect to confirm PLAN written.
+
+## Step 3 — Dependency Preflight
+Invoke `devops`:
+> "Run dependency preflight.
+> Read .ai/active/current/PLAN.md to understand the stack.
+> Report: 'Environment OK' or what needs user action."
+
+Wait for DevOps to confirm environment OK before starting wave loop.
