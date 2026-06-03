@@ -66,9 +66,12 @@ Invoke `tester`:
 **FAIL →**
 1. Do not analyze. Do not touch any file.
 2. Invoke `debugger` with failure list (test names + symptoms only)
-3. Debugger reports root layer → route fix:
-   - Code → `implementor`
-   - Test → `tester`
-   - Plan → `architect`
+3. Debugger reports root layer.
+   **From this point: orchestrator may only spawn the correct agent and wait.
+   Do not read, write, analyze, or fix anything yourself.**
+   - Code → invoke `implementor`
+   - Test → invoke `tester`
+   - Plan → invoke `architect`
+   - Environment → invoke `devops`
 4. After fix → re-invoke tester GREEN (back to 4c)
 5. Same tests fail after 2 full cycles → stop. Report to user: which tests, what was tried.
