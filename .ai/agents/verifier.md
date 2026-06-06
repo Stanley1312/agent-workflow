@@ -60,7 +60,7 @@ For each flow:
 **Step 4c — Visual comparison (mandatory when `active/current/designs/` exists):**
 For each screen file in `active/current/designs/`:
 1. Use Playwright to navigate to and screenshot the corresponding built screen → save to `active/current/verification/[screen-name].png`
-2. Run `mmx-vision` skill on the screenshot → save analysis to `active/current/verification/[screen-name].md`
+2. Run `vision` skill on the screenshot → save analysis to `active/current/verification/[screen-name].md`
 3. Compare against `active/current/designs/[screen-name].md` — check: layout structure, color palette, key components present
 4. Save comparison report to `active/current/verification/[screen-name]-diff.md`
 

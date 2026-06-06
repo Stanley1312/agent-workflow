@@ -1,6 +1,6 @@
 ---
 name: design-spec
-description: "Generate DESIGN.md — the project's design language. Invoke after SPEC is approved when SPEC contains UX Flows. Reads active/current/designs/ for screen analyses if available (from mmx-vision), otherwise researches independently. Output: .ai/active/current/DESIGN.md"
+description: "Generate DESIGN.md — the project's design language. Invoke after SPEC is approved when SPEC contains UX Flows. Reads active/current/designs/ for screen analyses if available, otherwise researches independently. Output: .ai/active/current/DESIGN.md"
 ---
 
 # Skill: Design Spec

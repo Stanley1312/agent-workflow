@@ -1,26 +1,30 @@
 ---
 name: web-search
-description: "Use mmx CLI to search the web for up-to-date information. Invoke when research is needed: tech stack best practices, library docs, breaking changes, or any information that may be outdated in training data."
+description: "Search the web for up-to-date information. Invoke when research is needed: tech stack best practices, library docs, breaking changes, or any information that may be outdated in training data."
 ---
 
 # Web Search
 
-## Default: mmx CLI
+Pick the first available option:
+
+## Option A — Tavily MCP (if available)
+If `tavily` MCP tool is in your context:
+```
+tavily_search({ query: "<search term>" })
+```
+If quota exceeded → Option B.
+
+## Option B — mmx-cli (if installed)
 ```bash
 mmx search query --q "<search term>" --output json --quiet
 ```
+Output is a JSON array: `[{ "title": "...", "url": "...", "snippet": "..." }]`
 
-Output là JSON array:
-```json
-[{ "title": "...", "url": "...", "snippet": "..." }]
+## Option C — Native tools (always available)
 ```
-
-## Fallback: built-in tools
-Nếu mmx không available (chưa install hoặc auth fail) → dùng built-in `WebSearch` và `WebFetch` tools trực tiếp.
-
-## Installation
-```bash
-npm install -g mmx-cli
-mmx auth login
+WebSearch({ query: "<search term>" })
 ```
-Verify: `mmx --version`
+Or fetch DuckDuckGo directly:
+```
+WebFetch({ url: "https://html.duckduckgo.com/html/?q=<search+term>" })
+```

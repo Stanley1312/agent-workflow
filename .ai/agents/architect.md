@@ -32,7 +32,7 @@ After SPEC is approved, in this exact order:
 
 **Screen analyses:**
 Search the project for image files that appear to be UI mockups, designs, or wireframes.
-Run `mmx-vision` skill on each found → save each output to `active/current/designs/[screen-name].md`
+Run `vision` skill on each found → save each output to `active/current/designs/[screen-name].md`
 
 **DESIGN.md:**
 Invoke `design-spec` skill — reads `active/current/designs/` if populated, otherwise researches independently.
