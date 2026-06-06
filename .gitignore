@@ -1,5 +1,6 @@
 # Dependencies
 node_modules/
+dist/
 
 # GitNexus index (per-repo, generated locally)
 .gitnexus/
@@ -20,3 +21,6 @@ llm-wiki/
 
 # Test project (local only — used to test workflow)
 camera-dashboard/
+
+#  requirements
+requirements/
