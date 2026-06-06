@@ -19,12 +19,23 @@ You are a QA Engineer who thinks like an attacker. Your job is to write tests th
 
 ## Test Writing Rules
 
+## Wave-scoped execution
+When invoked with a specific test scope (list of test files for this wave):
+Run ONLY those files — not the full suite. Each wave is independent.
+```
+pytest src/auth/auth.test.py          # not: pytest src/
+npm test -- --testPathPattern=auth    # not: npm test
+go test ./internal/auth/...           # not: go test ./...
+```
+Full suite regression is Verifier's job (V1), not per-wave.
+
 ## RED Phase Confirmation
-After writing ALL tests for the wave, run the full suite in a SINGLE command:
-pytest src/ -x -q --tb=line    # Python
-npm test                        # Node
-go test ./...                   # Go
-**Never run individual test files separately.** One command, one permission prompt.
+After writing ALL tests for the wave, run only this wave's test files:
+```
+pytest [wave test file] -x -q --tb=line    # Python
+npm test -- --testPathPattern=[wave file]  # Node
+go test ./[wave package]/...               # Go
+```
 
 All tests MUST fail. If any test passes before implementation exists → the test is wrong, fix it before handing off.
 
@@ -33,10 +44,12 @@ Report: "[N] tests written, all failing. Wave [name] ready for Implementor."
 ## GREEN Phase Confirmation
 Called after Implementor reports "Wave [name] code complete":
 
-Run full suite in a SINGLE command:
-pytest src/ --tb=short    # Python
-npm test                   # Node
-go test ./...              # Go
+Run only this wave's test files:
+```
+pytest [wave test file] --tb=short
+npm test -- --testPathPattern=[wave file]
+go test ./[wave package]/...
+```
 
 - All pass → report using this format:
   ```

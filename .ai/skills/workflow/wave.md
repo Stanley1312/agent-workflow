@@ -1,32 +1,33 @@
 # Step 4 — Wave Loop
 
-Read `PLAN.md` for the wave list.
+## Parse wave graph
 
-## UI/E2E wave — server setup
-If the current wave is the UI/E2E wave (last wave, contains Playwright):
-Before 4a, invoke `devops`:
-> "Set up app server for E2E testing.
-> Read playwright config if present.
-> Report: 'Server ready' or what failed."
+Read `PLAN.md`. For each wave, extract:
+- Name
+- Dependencies (wave names that must be GREEN first)
+- Test file(s) for this wave
 
-Wait for DevOps to confirm before 4a.
+## Loop until all waves GREEN
 
-## Parallel waves
-Before starting: check PLAN.md for wave dependencies.
-- Waves with no shared dependencies → spawn all in one Agent call simultaneously
-- Dependent waves → run sequentially
+Repeat until every wave is marked GREEN in STATE.md:
 
-## 4a. RED — Test generation
+1. Find all waves where: **not yet started** AND **all Dependencies are GREEN** in STATE.md (or Dependencies = None)
+2. Spawn each ready wave as a full independent pipeline in a single Agent call (simultaneously)
+
+### Per-wave pipeline
+
+#### 4a. RED
 Invoke `tester`:
 > "RED phase for [wave name].
 > SPEC: .ai/active/current/SPEC.md
-> PLAN: .ai/active/current/PLAN.md
-> Write all tests for this wave. Confirm all failing.
+> PLAN: .ai/active/current/PLAN.md — read only this wave's section
+> Test scope: [test file(s) listed for this wave]
+> Write tests. Run only these files to confirm all failing.
 > Report: '[N] tests written, all failing'."
 
 Wait for RED confirmed before 4b.
 
-## 4b. Implementation
+#### 4b. Implementation
 Check PLAN.md for this wave:
 
 **Parallel Groups present** → spawn one `implementor` per group in a single Agent call:
@@ -40,16 +41,16 @@ Check PLAN.md for this wave:
 > "Implement [wave name].
 > SPEC: .ai/active/current/SPEC.md
 > PLAN: .ai/active/current/PLAN.md
-> STATE: .ai/active/current/STATE.md
 > Write code to satisfy failing tests. Do not run tests.
 > Report: 'Wave [name] code complete'."
 
 Wait for ALL implementors to complete before 4c.
 
-## 4c. GREEN — Confirmation
+#### 4c. GREEN
 Invoke `tester`:
 > "GREEN phase for [wave name].
-> Run tests. Report 'Wave [name] GREEN' or structured failure list:
+> Run only: [test file(s) for this wave]
+> Report 'Wave [name] GREEN' or structured failure list:
 > test name + one-line symptom per failing test."
 
 **GREEN →**
@@ -57,11 +58,7 @@ Invoke `tester`:
 2. Update STATE.md wave Summary block (Built / Decisions / Errors hit)
 3. Write `llm-wiki/raw/notes/wave-[name]-[feature].md` with same content
 4. Run `npx gitnexus analyze` — re-index codebase after code changes
-5. More waves remain → next wave (back to 4a)
-6. Last wave →
-   - Write `All waves GREEN — [date]` checkpoint to STATE.md
-   - Set STATE.md `status: COMPLETE`
-   - Read `verify.md`
+5. Wave done → check if any waiting waves are now unblocked → spawn them (back to loop)
 
 **FAIL →**
 1. Do not analyze. Do not touch any file.
@@ -75,3 +72,17 @@ Invoke `tester`:
    - Environment → invoke `devops`
 4. After fix → re-invoke tester GREEN (back to 4c)
 5. Same tests fail after 2 full cycles → stop. Report to user: which tests, what was tried.
+
+## UI/E2E wave — server setup
+If any ready wave is the UI/E2E wave (contains Playwright):
+Before its 4a, invoke `devops`:
+> "Set up app server for E2E testing.
+> Read playwright config if present.
+> Report: 'Server ready' or what failed."
+
+Wait for DevOps to confirm before that wave's 4a.
+
+## After all waves GREEN
+- Write `All waves GREEN — [date]` checkpoint to STATE.md
+- Set STATE.md `status: COMPLETE`
+- Read `verify.md`
