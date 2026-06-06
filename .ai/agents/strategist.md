@@ -65,4 +65,5 @@ Present SPEC to user:
 - ❌ Skipping interview because user mentioned something in passing
 
 ## Rules
+Read before starting:
 - `.ai/rules/no-self-fix.md`

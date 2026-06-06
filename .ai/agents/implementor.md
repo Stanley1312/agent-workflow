@@ -88,3 +88,8 @@ When all wave code is written AND refactor is complete:
   Built: [brief summary of what was implemented]
   Decisions: [any non-obvious technical choices made and why]
   ```
+## Rules
+Read before starting:
+- `.ai/rules/code-quality.md`
+- `.ai/rules/no-self-fix.md`
+- `.ai/rules/testing-conventions.md`

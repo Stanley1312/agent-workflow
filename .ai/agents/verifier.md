@@ -111,3 +111,7 @@ Invoke `bug-routing` skill with:
 
 Follow the bug-routing protocol — do not route directly.
 Do not proceed to ingestion. Wait for re-verification.
+
+## Rules
+Read before starting:
+- `.ai/rules/no-self-fix.md`

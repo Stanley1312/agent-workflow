@@ -101,4 +101,5 @@ When Debugger reports a legacy bug requiring fix:
 5. After bug fix ingested → invoke `workflow` skill run protocol — it will detect `active/paused/` and restore automatically
 
 ## Rules
+Read before starting:
 - `.ai/rules/no-self-fix.md`
