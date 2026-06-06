@@ -10,7 +10,7 @@
     "vision-mcp-server-ollama": {
       "command": "node",
       "args": [
-        "/home/dudu/Workspace/projects/agent-workflow/dist/src/server.js"
+        "./dist/src/server.js"
       ],
       "env": {
         "OLLAMA_HOST": "http://localhost:11434",

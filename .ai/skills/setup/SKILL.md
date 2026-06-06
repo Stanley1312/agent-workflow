@@ -44,7 +44,7 @@ Add MCP servers to `.mcp.json` at project root. Available servers:
 ```json
 "vision-mcp-server-ollama": {
   "command": "node",
-  "args": ["dist/src/server.js"],
+  "args": ["./dist/src/server.js"],
   "env": {
     "OLLAMA_HOST": "http://localhost:11434",
     "OLLAMA_VISION_MODEL": "llama3.2-vision:latest"
