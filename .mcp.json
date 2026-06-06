@@ -1,5 +1,12 @@
 {
   "mcpServers": {
+    "tavily": {
+      "command": "npx",
+      "args": ["-y", "tavily-mcp@latest"],
+      "env": {
+        "TAVILY_API_KEY": "tvly-YOUR_KEY_HERE"
+      }
+    },
     "vision-mcp-server-ollama": {
       "command": "node",
       "args": [
