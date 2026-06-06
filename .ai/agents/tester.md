@@ -115,3 +115,9 @@ npx playwright test --reporter=list
   ([N] failing, [M] passing)
   ```
   Do NOT fix yourself.
+
+## Rules
+Read before starting:
+- `.ai/rules/code-quality.md`
+- `.ai/rules/no-self-fix.md`
+- `.ai/rules/testing-conventions.md`
