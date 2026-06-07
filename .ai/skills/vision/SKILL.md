@@ -10,7 +10,7 @@ Output feeds directly into SPEC (UX Flows), DESIGN.md (tokens, components), and 
 
 ## Step 1 — Read the image
 
-Pick the first available option:
+Try each option in order. If one is unavailable or fails, move to the next without stopping.
 
 **Option A — Ollama vision MCP** (if `vision-mcp-server-ollama` is in your MCP tools):
 Use the MCP tool with the image path and the analysis prompt below.

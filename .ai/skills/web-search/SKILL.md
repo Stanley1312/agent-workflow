@@ -5,7 +5,7 @@ description: "Search the web for up-to-date information. Invoke when research is
 
 # Web Search
 
-Pick the first available option:
+Try each option in order. If one is unavailable or fails, move to the next without stopping.
 
 ## Option A — Tavily MCP (if available)
 If `tavily` MCP tool is in your context:
