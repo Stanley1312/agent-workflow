@@ -68,7 +68,7 @@ project-root/
 │       ├── debug/SKILL.md
 │       ├── explore/SKILL.md
 │       ├── workflow/SKILL.md
-│       ├── web_search/SKILL.md
+│       ├── web-search/SKILL.md
 │       ├── bug_routing/SKILL.md     ← NEW this session
 │       ├── frontend-design/SKILL.md ← Added by user, needs wrapper created
 │       ├── gitnexus/                ← Auto-installed
@@ -91,7 +91,7 @@ project-root/
 │   │   ├── explore/SKILL.md
 │   │   ├── debug/SKILL.md
 │   │   ├── wiki_agent/SKILL.md
-│   │   ├── web_search/SKILL.md
+│   │   ├── web-search/SKILL.md
 │   │   ├── setup/SKILL.md
 │   │   └── bug_routing/SKILL.md    ← NEW this session
 │   ├── active/
@@ -299,7 +299,7 @@ Scope: content + triggering for all `.ai/skills/` + `.claude/skills/` + `.claude
 Priority issues found:
 | File | Issue |
 |------|-------|
-| `web_search/SKILL.md` | Description talks about config (mmx, Tavily) not when to trigger |
+| `web-search/SKILL.md` | Description talks about config (mmx, Tavily) not when to trigger |
 | `wiki_agent/SKILL.md` | Description too long, "Compatible with..." is filler |
 | `discuss/SKILL.md` | "when any input feels vague" — too vague to trigger |
 | `debug/SKILL.md` | Not "pushy" enough |

@@ -24,3 +24,12 @@ camera-dashboard/
 
 #  requirements
 requirements/
+
+# JS
+package-lock.json
+.next/
+.vite/
+
+#playwright
+test-results/
+
